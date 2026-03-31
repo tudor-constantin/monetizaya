@@ -1,0 +1,114 @@
+<?php
+
+use App\Livewire\Actions\Logout;
+use Livewire\Volt\Component;
+
+new class extends Component
+{
+    public function logout(Logout $logout): void
+    {
+        $logout();
+        $this->redirect('/', navigate: true);
+    }
+}; ?>
+
+<nav x-data="{ open: false }" class="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center gap-8">
+                <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0" wire:navigate>
+                    <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <span class="font-bold text-lg hidden sm:block text-gray-900 dark:text-white">{{ config('app.name') }}</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="{{ route('dashboard') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('dashboard') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
+                        Dashboard
+                    </a>
+
+                    @if(auth()->user()->hasRole('creator') || auth()->user()->hasRole('admin'))
+                        <a href="{{ route('creator.dashboard') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('creator.*') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
+                            Creator Studio
+                        </a>
+                    @endif
+
+                    @if(auth()->user()->hasRole('admin'))
+                        <a href="{{ route('admin.dashboard') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('admin.*') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
+                            Admin
+                        </a>
+                    @endif
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <!-- Dark mode toggle -->
+                <button onclick="window.toggleDarkMode()" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Toggle dark mode">
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+
+                <!-- User menu -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <button class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
+                                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                                </div>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300 max-w-[120px] truncate">{{ auth()->user()->name }}</span>
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">{{ auth()->user()->name }}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ auth()->user()->email }}</p>
+                                @if(auth()->user()->hasRole('admin'))
+                                    <span class="inline-flex items-center mt-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-400">Admin</span>
+                                @elseif(auth()->user()->hasRole('creator'))
+                                    <span class="inline-flex items-center mt-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium bg-purple-50 dark:bg-purple-500/10 text-purple-700 dark:text-purple-400">Creator</span>
+                                @else
+                                    <span class="inline-flex items-center mt-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">User</span>
+                                @endif
+                            </div>
+                            <x-dropdown-link :href="route('profile')" wire:navigate>
+                                Profile
+                            </x-dropdown-link>
+                            <button wire:click="logout" class="w-full text-start">
+                                <x-dropdown-link>
+                                    Log Out
+                                </x-dropdown-link>
+                            </button>
+                        </x-slot>
+                    </x-dropdown>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button @click="open = ! open" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <svg class="h-5 w-5" :class="{'hidden': open, 'block': ! open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg class="h-5 w-5" :class="{'hidden': ! open, 'block': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div x-show="open" x-transition class="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+        <div class="px-4 py-3 space-y-1">
+            <a href="{{ route('dashboard') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('dashboard') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}" wire:navigate>Dashboard</a>
+            @if(auth()->user()->hasRole('creator') || auth()->user()->hasRole('admin'))
+                <a href="{{ route('creator.dashboard') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('creator.*') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}" wire:navigate>Creator Studio</a>
+            @endif
+            @if(auth()->user()->hasRole('admin'))
+                <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('admin.*') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}" wire:navigate>Admin</a>
+            @endif
+        </div>
+        <div class="border-t border-gray-200 dark:border-gray-800 px-4 py-3 space-y-1">
+            <a href="{{ route('profile') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400" wire:navigate>Profile</a>
+            <button wire:click="logout" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400">Log Out</button>
+        </div>
+    </div>
+</nav>

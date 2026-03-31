@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'platform_commission' => (float) env('PLATFORM_COMMISSION_PERCENTAGE', 10.0),
+
 ];

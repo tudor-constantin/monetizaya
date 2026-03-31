@@ -252,6 +252,15 @@ cp .env.example .env
 
 # 5. Generar la clave de aplicación
 php artisan key:generate
+
+# 6. Ejecutar migraciones
+php artisan migrate
+
+# 7. Compilar assets (desarrollo)
+npm run dev
+
+# 8. Iniciar el servidor
+php artisan serve
 ```
 
 #### Configurar `.env`
