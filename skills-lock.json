@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "frontend-tailwind-best-practices": {
+      "source": "sergiodxa/agent-skills",
+      "sourceType": "github",
+      "computedHash": "9b01e9e374358b6dd7182ac5f31ef26a3c1fdb114289d741b12c641b03e8310b"
+    },
+    "frontend-ui-ux-engineer": {
+      "source": "404kidwiz/claude-supercode-skills",
+      "sourceType": "github",
+      "computedHash": "b26907aa12835bc6eb9c2845d4177ae8c4cf43b0171f4b9fa8b59e9303a5b45a"
+    },
+    "laravel-best-practices": {
+      "source": "asyrafhussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "3f2351dc1821d430b6b58ce24175e0af11f5c11b234198bfc76a6702c05fe3ef"
+    },
+    "laravel-security": {
+      "source": "affaan-m/everything-claude-code",
+      "sourceType": "github",
+      "computedHash": "86d246c2eb8fcda4586e13f9e32cd55e3ff222f6079a7f0b4442ef5e4e0971e7"
+    },
+    "laravel-specialist": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "computedHash": "3fb2841e7b0e05d64484970fdbb03063327d904c270b2e46b9217b18863132ca"
+    },
+    "ui-design": {
+      "source": "tencentcloudbase/skills",
+      "sourceType": "github",
+      "computedHash": "48bafd9d478594daaf0f85d76612558864fd63c2dbd6a770abb41b37af474c82"
+    }
+  }
+}
