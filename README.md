@@ -4,7 +4,7 @@
 
 [![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=flat-square&logo=laravel)](https://laravel.com)
 [![Livewire](https://img.shields.io/badge/Livewire-3.x-4E56A6?style=flat-square&logo=livewire)](https://livewire.laravel.com)
-[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.x-38BDF8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4.x-38BDF8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
 ---
@@ -155,7 +155,7 @@ Los eventos críticos de Stripe (pagos, cancelaciones, fallos, disputas) se gest
 |---|---|---|
 | Backend | Laravel 13 | Framework PHP maduro, ecosistema completo, excelente soporte para colas, jobs y eventos |
 | Frontend | Blade + Livewire 3 | Interactividad reactiva sin SPA; menor complejidad y mejor SEO que React/Vue para este tipo de producto |
-| Estilos | Tailwind CSS 3 | Utilidades atómicas, sin CSS custom innecesario, fácil de mantener a escala |
+| Estilos | Tailwind CSS 4 | Utilidades atómicas, sin CSS custom innecesario, fácil de mantener a escala |
 | Base de datos | MySQL 8 / PostgreSQL 15 | Relacional; ambas soportadas; PostgreSQL recomendado para producción por robustez y soporte de tipos avanzados |
 | Pagos | Stripe + Laravel Cashier | Cashier abstrae la gestión de suscripciones sobre la API de Stripe; reduce código boilerplate y errores |
 | Colas | Laravel Queues + Redis | Jobs asíncronos para emails, webhooks y procesamiento de archivos |
@@ -257,7 +257,7 @@ php artisan key:generate
 php artisan migrate
 
 # 7. Compilar assets (desarrollo)
-npm run dev
+npm install & npm run dev
 
 # 8. Iniciar el servidor
 php artisan serve
@@ -378,6 +378,17 @@ monetizaya/
 - [x] Panel de creador con métricas básicas
 - [x] Panel de administración
 - [x] Emails transaccionales
+- [x] Navegación SPA con Livewire Volt (wire:navigate)
+- [x] Modo oscuro completo con toggle persistente
+- [x] UI/UX profesional con Tailwind CSS 4
+- [ ] Formularios de autenticación con mensajes seguros en inglés
+- [ ] Traducciones completas en `lang/en/` (auth, passwords, validation, profile)
+- [ ] Toast notifications profesionales con auto-dismiss y cierre manual responsive
+- [x] Políticas de autorización para contenido premium
+- [x] Middleware de roles (creator, admin)
+- [x] Servicios de negocio (SubscriptionService, RevenueService)
+- [x] Webhook handler de Stripe para eventos de pago
+- [x] Modelos y migraciones (Post, Resource, Course, Module, Lesson, Transaction)
 
 ### v1.1 — Cursos
 
