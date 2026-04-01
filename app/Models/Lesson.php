@@ -33,11 +33,6 @@ final class Lesson extends Model
         return $this->belongsTo(CourseModule::class, 'module_id');
     }
 
-    public function course(): BelongsTo
-    {
-        return $this->belongsTo(Course::class, 'module_id', 'id');
-    }
-
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'lesson_progress')

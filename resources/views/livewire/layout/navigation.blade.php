@@ -15,12 +15,12 @@ new class extends Component
 <nav x-data="{ open: false }" class="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-            <div class="flex items-center gap-8">
+            <div class="flex items-center gap-3 sm:gap-8">
                 <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0" wire:navigate>
                     <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                     </div>
-                    <span class="font-bold text-lg hidden sm:block text-gray-900 dark:text-white">{{ config('app.name') }}</span>
+                    <span class="font-bold text-lg text-gray-900 dark:text-white">{{ config('app.name') }}</span>
                 </a>
 
                 <div class="hidden md:flex items-center gap-1">

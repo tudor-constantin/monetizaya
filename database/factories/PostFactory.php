@@ -10,15 +10,38 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PostFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->sentence(),
+            'slug' => fake()->slug(),
+            'body' => fake()->paragraphs(5, true),
+            'is_premium' => fake()->boolean(30),
+            'status' => fake()->randomElement(['draft', 'published', 'archived']),
+            'published_at' => fake()->optional(0.7)->dateTimeBetween('-6 months', 'now'),
+            'views' => fake()->numberBetween(0, 5000),
         ];
+    }
+
+    public function published(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'published',
+            'published_at' => fake()->dateTimeBetween('-6 months', 'now'),
+        ]);
+    }
+
+    public function premium(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_premium' => true,
+        ]);
+    }
+
+    public function free(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_premium' => false,
+        ]);
     }
 }

@@ -28,7 +28,10 @@ class Dashboard extends Component
         $user = Auth::user();
 
         $this->earnings = app(RevenueService::class)->getCreatorEarnings($user, 'month');
-        $this->activeSubscribers = $user->posts()->count();
+        $this->activeSubscribers = $user->earnings()
+            ->where('status', 'completed')
+            ->distinct('subscriber_id')
+            ->count('subscriber_id');
         $this->totalPosts = $user->posts()->count();
         $this->totalViews = (int) $user->posts()->sum('views');
         $this->recentTransactions = Transaction::where('creator_id', $user->id)

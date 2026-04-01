@@ -1,6 +1,6 @@
 # MonetizaYa
 
-> Plataforma de monetización para creadores de contenido digital. Suscripciones recurrentes, contenido premium y pagos gestionados con Stripe.
+> Monetization platform for digital content creators. Recurring subscriptions, premium content, and payments managed with Stripe.
 
 [![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=flat-square&logo=laravel)](https://laravel.com)
 [![Livewire](https://img.shields.io/badge/Livewire-3.x-4E56A6?style=flat-square&logo=livewire)](https://livewire.laravel.com)
@@ -9,263 +9,268 @@
 
 ---
 
-## Índice
+## Table of Contents
 
-1. [Descripción](#descripción)
-2. [Problema que resuelve](#problema-que-resuelve)
-3. [Propuesta de valor](#propuesta-de-valor)
-4. [Funcionalidades principales](#funcionalidades-principales)
-5. [Roles de usuario](#roles-de-usuario)
-6. [Flujo del sistema](#flujo-del-sistema)
-7. [Stack tecnológico](#stack-tecnológico)
-8. [Arquitectura general](#arquitectura-general)
-9. [Consideraciones de producción](#consideraciones-de-producción)
-10. [Instalación local](#instalación-local)
-11. [Estructura del proyecto](#estructura-del-proyecto)
+1. [Description](#description)
+2. [Problem it solves](#problem-it-solves)
+3. [Value proposition](#value-proposition)
+4. [Core features](#core-features)
+5. [User roles](#user-roles)
+6. [System flow](#system-flow)
+7. [Tech stack](#tech-stack)
+8. [Architecture](#architecture)
+9. [Production considerations](#production-considerations)
+10. [Local installation](#local-installation)
+11. [Project structure](#project-structure)
 12. [Roadmap](#roadmap)
-13. [Buenas prácticas](#buenas-prácticas)
-14. [Licencia](#licencia)
+13. [Best practices](#best-practices)
+14. [License](#license)
 
 ---
 
-## Descripción
+## Description
 
-**MonetizaYa** es una plataforma SaaS que permite a creadores de contenido digital —escritores, educadores, artistas, desarrolladores— monetizar su audiencia mediante suscripciones mensuales recurrentes.
+**MonetizaYa** is a SaaS platform that allows digital content creators — writers, educators, artists, developers — to monetize their audience through monthly recurring subscriptions.
 
-Los creadores publican contenido exclusivo (posts, recursos descargables, cursos) al que solo acceden sus suscriptores activos. La plataforma gestiona el ciclo completo: registro, pagos, acceso al contenido y distribución de ingresos, reteniendo una comisión configurable por transacción.
+Creators publish exclusive content (posts, downloadable resources, courses) accessible only to their active subscribers. The platform manages the complete cycle: registration, payments, content access, and revenue distribution, retaining a configurable commission per transaction.
 
-El proyecto está construido para producción real desde el primer día: arquitectura limpia, pagos seguros vía Stripe y una base de código mantenible y escalable.
-
----
-
-## Problema que resuelve
-
-Los creadores de contenido en habla hispana no disponen de una plataforma de membresías con buen soporte local, precios razonables y control real sobre su contenido y audiencia. Las opciones existentes (Patreon, Ko-fi, Buy Me a Coffee) están orientadas al mercado anglosajón, aplican comisiones elevadas y ofrecen poca flexibilidad para adaptarse a modelos de negocio específicos.
-
-MonetizaYa cubre este hueco con:
-
-- Una plataforma en español, pensada para el mercado hispanohablante.
-- Comisiones transparentes y configurables desde el panel de administración.
-- Control total sobre los tipos de contenido y las estructuras de suscripción.
-- Infraestructura propia, sin dependencia de terceros para la gestión de la audiencia.
+The project is built for real production from day one: clean architecture, secure payments via Stripe, and a maintainable, scalable codebase.
 
 ---
 
-## Propuesta de valor
+## Problem it solves
 
-| Para el creador | Para el suscriptor |
+Content creators lack a membership platform with reasonable pricing, transparent commissions, and real control over their content and audience. Existing options (Patreon, Ko-fi, Buy Me a Coffee) charge high fees and offer limited flexibility for specific business models.
+
+MonetizaYa fills this gap with:
+
+- A platform built for creators, with transparent and configurable commissions.
+- Full control over content types and subscription structures.
+- Own infrastructure, without third-party dependency for audience management.
+
+---
+
+## Value proposition
+
+| For the creator | For the subscriber |
 |---|---|
-| Publica posts, archivos y cursos en un solo lugar | Accede a todo el contenido exclusivo de los creadores que sigue |
-| Cobra automáticamente cada mes vía Stripe | Gestiona sus suscripciones activas desde un panel unificado |
-| Visualiza métricas de ingresos y suscriptores | Paga de forma segura; sus datos no los gestiona el creador |
-| Controla qué contenido es gratuito y cuál es premium | Recibe notificaciones cuando se publica contenido nuevo |
+| Publish posts, files, and courses in one place | Access all exclusive content from creators they follow |
+| Get paid automatically every month via Stripe | Manage active subscriptions from a unified dashboard |
+| View revenue and subscriber metrics | Pay securely; their data isn't managed by the creator |
+| Control what content is free vs premium | Receive notifications when new content is published |
 
 ---
 
-## Funcionalidades principales
+## Core features
 
-### Gestión de creadores
+### Creator management
 
-- Perfil público personalizable: avatar, portada, descripción, redes sociales y enlace de suscripción.
-- Panel de creador con métricas: ingresos del mes, suscriptores activos, churn mensual y contenido más visitado.
-- Configuración del precio mensual de suscripción.
-- Creación y edición de contenido premium con control de visibilidad.
+- Customizable public profile: avatar, cover image, bio, social links, and subscription link.
+- Creator dashboard with metrics: monthly revenue, active subscribers, monthly churn, and most visited content.
+- Monthly subscription price configuration.
+- Premium content creation and editing with visibility control.
 
-### Tipos de contenido
+### Content types
 
-- **Posts**: entradas de texto enriquecido con soporte para imágenes y embeds. Pueden ser gratuitas o exclusivas para suscriptores.
-- **Recursos descargables**: archivos PDF, ZIP, imágenes, audio o cualquier formato. Descarga protegida mediante URLs firmadas temporales.
-- **Cursos**: estructura de módulos y lecciones ordenadas. Acceso secuencial opcional. Progreso del alumno persistido por usuario.
+- **Posts**: Rich text entries with image and embed support. Can be free or subscriber-exclusive.
+- **Downloadable resources**: PDF, ZIP, images, audio, or any file format. Protected downloads via temporary signed URLs.
+- **Courses**: Structured modules and ordered lessons. Optional sequential access. Student progress persisted per user.
 
-### Suscripciones y pagos
+### Subscriptions and payments
 
-- Flujo de suscripción gestionado íntegramente con Stripe Checkout y Laravel Cashier.
-- Cobros recurrentes mensuales con renovación automática.
-- Gestión de fallos de pago: reintentos automáticos de Stripe y notificación al usuario.
-- Cancelación y reactivación desde el panel del suscriptor.
-- Revenue share: la plataforma retiene un porcentaje configurable; el creador ve su ingreso neto en tiempo real.
-- Historial de cobros y descarga de facturas en PDF.
+- Subscription flow managed entirely with Stripe Checkout and Laravel Cashier.
+- Monthly recurring charges with automatic renewal.
+- Payment failure handling: Stripe automatic retries and user notification.
+- Cancellation and reactivation from the subscriber dashboard.
+- Revenue share: the platform retains a configurable percentage; the creator sees their net income in real time.
+- Payment history and PDF invoice downloads.
 
-### Panel de administración
+### Admin panel
 
-- Gestión de usuarios y creadores: activación, suspensión y eliminación.
-- Configuración global de la comisión de la plataforma.
-- Visualización de transacciones, disputas y reembolsos.
-- Revisión de contenido denunciado.
-- Estadísticas globales: GMV, ingresos netos, creadores activos, retención.
+- User and creator management: activation, suspension, and deletion.
+- Global platform commission configuration.
+- Transaction, dispute, and refund overview.
+- Reported content review.
+- Global statistics: GMV, net revenue, active creators, retention.
 
-### Notificaciones
+### Notifications
 
-- Email transaccional (nuevo suscriptor, cobro exitoso, cobro fallido, cancelación).
-- Notificaciones en plataforma para suscriptores (nuevo contenido publicado).
-
----
-
-## Roles de usuario
-
-### `user` — Suscriptor
-
-Usuario registrado que puede explorar la plataforma, suscribirse a creadores y acceder al contenido premium de sus suscripciones activas. Gestiona sus métodos de pago y suscripciones desde su panel personal.
-
-### `creator` — Creador
-
-Usuario con perfil de creador habilitado (puede solicitarlo desde su cuenta o ser asignado por un administrador). Puede publicar contenido, configurar su precio de suscripción y acceder a su panel de analíticas e ingresos.
-
-### `admin` — Administrador
-
-Acceso total a la plataforma. Gestiona usuarios, creadores, contenido, configuración de comisiones y supervisa el estado financiero del sistema. No puede acceder a los métodos de pago individuales de los usuarios (gestionados directamente por Stripe).
+- Transactional emails (new subscriber, successful payment, failed payment, cancellation).
+- In-platform notifications for subscribers (new content published).
 
 ---
 
-## Flujo del sistema
+## User roles
+
+### `user` — Subscriber
+
+Registered user who can explore the platform, subscribe to creators, and access premium content from their active subscriptions. Manages payment methods and subscriptions from their personal dashboard.
+
+### `creator` — Creator
+
+User with an enabled creator profile (can request it from their account or be assigned by an admin). Can publish content, configure subscription pricing, and access their analytics and revenue dashboard.
+
+### `admin` — Administrator
+
+Full platform access. Manages users, creators, content, commission settings, and oversees the financial state of the system. Cannot access individual users' payment methods (managed directly by Stripe).
+
+---
+
+## System flow
 
 ```
-[Visitante]
+[Visitor]
     │
-    ├── Explora perfiles de creadores y contenido gratuito
+    ├── Explores creator profiles and free content
     │
-    └── Se registra como usuario
+    └── Registers as a user
             │
-            ├── Busca un creador → visita su perfil público
+            ├── Searches for a creator → visits their public profile
             │
-            └── Inicia suscripción
+            └── Starts a subscription
                     │
-                    ├── Redirige a Stripe Checkout (pago seguro)
+                    ├── Redirects to Stripe Checkout (secure payment)
                     │
-                    └── Stripe confirma el pago
+                    └── Stripe confirms payment
                             │
-                            ├── Webhook → Laravel activa la suscripción en la BD
+                            ├── Webhook → Laravel activates the subscription in the DB
                             │
-                            ├── El usuario accede al contenido premium del creador
+                            ├── User accesses the creator's premium content
                             │
-                            └── Cada mes: Stripe cobra → webhook → registro de transacción
+                            └── Each month: Stripe charges → webhook → transaction recorded
                                     │
-                                    ├── Stripe calcula el neto del creador (descuento de comisión)
+                                    ├── Stripe calculates creator net (commission deducted)
                                     │
-                                    └── El creador visualiza el ingreso en su panel
+                                    └── Creator views the income in their dashboard
 ```
 
-Los eventos críticos de Stripe (pagos, cancelaciones, fallos, disputas) se gestionan exclusivamente a través de webhooks firmados, nunca mediante polling ni redirecciones de cliente.
+Critical Stripe events (payments, cancellations, failures, disputes) are managed exclusively through signed webhooks, never via polling or client redirects.
 
 ---
 
-## Stack tecnológico
+## Tech stack
 
-| Capa | Tecnología | Motivo |
+| Layer | Technology | Reason |
 |---|---|---|
-| Backend | Laravel 13 | Framework PHP maduro, ecosistema completo, excelente soporte para colas, jobs y eventos |
-| Frontend | Blade + Livewire 3 | Interactividad reactiva sin SPA; menor complejidad y mejor SEO que React/Vue para este tipo de producto |
-| Estilos | Tailwind CSS 4 | Utilidades atómicas, sin CSS custom innecesario, fácil de mantener a escala |
-| Base de datos | MySQL 8 / PostgreSQL 15 | Relacional; ambas soportadas; PostgreSQL recomendado para producción por robustez y soporte de tipos avanzados |
-| Pagos | Stripe + Laravel Cashier | Cashier abstrae la gestión de suscripciones sobre la API de Stripe; reduce código boilerplate y errores |
-| Colas | Laravel Queues + Redis | Jobs asíncronos para emails, webhooks y procesamiento de archivos |
-| Almacenamiento | Laravel Filesystem (S3 / local) | Archivos premium almacenados fuera del webroot, servidos mediante URLs firmadas |
-| Despliegue | Coolify / Dokploy | Plataforma PaaS self-hosted sobre Docker; CI/CD con pipelines sencillos |
+| Backend | Laravel 13 | Mature PHP framework, complete ecosystem, excellent queue, job, and event support |
+| Frontend | Blade + Livewire 3 | Reactive interactivity without SPA; less complexity and better SEO than React/Vue for this product |
+| Styling | Tailwind CSS 4 | Atomic utilities, no unnecessary custom CSS, easy to maintain at scale |
+| Database | MySQL 8 / PostgreSQL 15 | Relational; both supported; PostgreSQL recommended for production due to robustness and advanced type support |
+| Payments | Stripe + Laravel Cashier | Cashier abstracts subscription management over the Stripe API; reduces boilerplate and errors |
+| Queues | Laravel Queues + Redis | Async jobs for emails, webhooks, and file processing |
+| Storage | Laravel Filesystem (S3 / local) | Premium files stored outside the webroot, served via signed URLs |
+| Deployment | Coolify / Dokploy | Self-hosted PaaS on Docker; simple CI/CD pipelines |
 
 ---
 
-## Arquitectura general
+## Architecture
 
 ### Backend
 
-La lógica de negocio se organiza en servicios (`app/Services`) desacoplados de los controladores. Los controladores son delgados: validan la entrada, delegan al servicio correspondiente y devuelven la respuesta.
+Business logic is organized in services (`app/Services`) decoupled from controllers. Controllers are thin: they validate input, delegate to the appropriate service, and return the response.
 
-Los jobs de larga duración (procesamiento de archivos, envío de emails, sincronización con Stripe) se despachan a colas Redis para no bloquear el ciclo de petición-respuesta.
+Long-running jobs (file processing, email sending, Stripe sync) are dispatched to Redis queues to not block the request-response cycle.
 
 ### Frontend
 
-Las vistas Blade se complementan con componentes Livewire para las partes que requieren reactividad: formularios de publicación, panel de suscripciones, progreso de cursos y notificaciones en tiempo real. El JavaScript personalizado se limita a integraciones específicas (Stripe.js para el formulario de pago).
+Blade views are complemented with Livewire components for parts requiring reactivity: publishing forms, subscription dashboard, course progress, and real-time notifications. Custom JavaScript is limited to specific integrations (Stripe.js for payment forms).
 
-### Pagos
+### Payments
 
-El flujo de cobro no pasa por los servidores de MonetizaYa: el usuario es redirigido a Stripe Checkout, que gestiona la captura de datos de tarjeta de forma segura. Los eventos de pago llegan de vuelta mediante webhooks firmados con la clave secreta de Stripe, verificados antes de procesarse.
+The payment flow does pass through MonetizaYa servers: the user is redirected to Stripe Checkout, which securely handles card data capture. Payment events come back via webhooks signed with Stripe's secret key, verified before processing.
 
-La comisión de la plataforma se implementa mediante **Stripe Connect** (modelo de destino), donde MonetizaYa actúa como plataforma y los creadores como cuentas conectadas. Esto garantiza la separación de fondos y el cumplimiento normativo.
+The platform commission is implemented via revenue share calculation on each transaction recorded locally.
 
-### Seguridad
+### Security
 
-- Autenticación con Laravel Breeze / Fortify (soporte para 2FA).
-- Autorización mediante Policies de Laravel; ningún endpoint de creador es accesible sin verificar el rol.
-- Contenido premium servido exclusivamente con URLs firmadas de S3 de corta duración (15 minutos); no existen URLs permanentes.
-- Webhooks de Stripe verificados con `StripeSignatureVerificationException` antes de procesar cualquier evento.
-- Variables sensibles (claves de API, credenciales de BD) gestionadas con `.env` y nunca versionadas.
-- Headers de seguridad HTTP configurados a nivel de servidor (HSTS, CSP, X-Frame-Options).
-- Rate limiting en endpoints de autenticación y API pública.
-
----
-
-## Consideraciones de producción
-
-### Escalabilidad
-
-- La aplicación es stateless: puede escalar horizontalmente añadiendo instancias sin modificar código.
-- Las sesiones y caché se almacenan en Redis, compartido entre instancias.
-- Los archivos de usuario residen en S3 (o compatible), no en el disco de la instancia.
-- Las colas permiten absorber picos de carga sin afectar tiempos de respuesta.
-
-### Seguridad en pagos
-
-- MonetizaYa nunca almacena datos de tarjeta; cumplimiento PCI delegado a Stripe.
-- Los `payment_method` y `customer_id` de Stripe son los únicos identificadores financieros guardados en la BD.
-- Todas las transacciones son registradas localmente para auditoría, incluso cuando el origen es un webhook.
-
-### Protección de contenido premium
-
-- Los archivos no son accesibles por URL directa; el servidor de almacenamiento los mantiene privados.
-- Cada solicitud de descarga genera una URL firmada nueva, verificando en el backend que el usuario tiene suscripción activa.
-- El streaming de vídeo (si aplica en el roadmap) se implementará con HLS y tokens de acceso de corta duración.
-
-### Manejo de errores de pago
-
-- Stripe gestiona los reintentos automáticos según su lógica de Smart Retries.
-- El webhook `invoice.payment_failed` dispara un email al suscriptor y marca la suscripción como `past_due`.
-- Tras el período de gracia configurable, la suscripción se cancela y el acceso al contenido se revoca automáticamente.
+- Authentication with Laravel Breeze / Fortify (2FA support).
+- Authorization via Laravel Policies; no creator endpoint is accessible without role verification.
+- Premium content served exclusively with short-lived S3 signed URLs (15 minutes); no permanent URLs exist.
+- Stripe webhooks verified with `StripeSignatureVerificationException` before processing any event.
+- Sensitive variables (API keys, DB credentials) managed with `.env` and never versioned.
+- HTTP security headers configured at the server level (HSTS, CSP, X-Frame-Options).
+- Rate limiting on authentication endpoints and public API.
 
 ---
 
-## Instalación local
+## Production considerations
 
-### Requisitos previos
+### Scalability
+
+- The application is stateless: can scale horizontally by adding instances without code changes.
+- Sessions and cache are stored in Redis, shared across instances.
+- User files reside in S3 (or compatible), not on instance disk.
+- Queues absorb traffic spikes without affecting response times.
+
+### Payment security
+
+- MonetizaYa never stores card data; PCI compliance delegated to Stripe.
+- Stripe `payment_method` and `customer_id` are the only financial identifiers saved in the DB.
+- All transactions are recorded locally for auditing, even when the origin is a webhook.
+
+### Premium content protection
+
+- Files are not accessible via direct URL; the storage server keeps them private.
+- Each download request generates a new signed URL, verifying in the backend that the user has an active subscription.
+- Video streaming (if applicable in the roadmap) will be implemented with HLS and short-lived access tokens.
+
+### Payment error handling
+
+- Stripe manages automatic retries according to its Smart Retries logic.
+- The `invoice.payment_failed` webhook triggers an email to the subscriber and marks the subscription as `past_due`.
+- After the configurable grace period, the subscription is cancelled and content access is automatically revoked.
+
+---
+
+## Local installation
+
+### Prerequisites
 
 - PHP 8.3+
 - Composer 2.x
-- Node.js 20+ y npm
-- MySQL 8+ o PostgreSQL 15+
+- Node.js 20+ and npm
+- MySQL 8+ or PostgreSQL 15+
 - Redis
-- Cuenta de Stripe con claves de prueba
+- Stripe account with test keys
 
-### Pasos
+### Steps
 
 ```bash
-# 1. Clonar el repositorio
+# 1. Clone the repository
 git clone https://github.com/tudor-constantin/monetizaya.git
 cd monetizaya
 
-# 2. Instalar dependencias PHP
+# 2. Install PHP dependencies
 composer install
 
-# 3. Instalar dependencias de frontend
+# 3. Install frontend dependencies
 npm install
 
-# 4. Copiar el archivo de entorno
+# 4. Copy the environment file
 cp .env.example .env
 
-# 5. Generar la clave de aplicación
+# 5. Generate the application key
 php artisan key:generate
 
-# 6. Ejecutar migraciones
-php artisan migrate
+# 6. Run migrations and seeders
+php artisan migrate --seed
 
-# 7. Compilar assets (desarrollo)
-npm install & npm run dev
+# 7. Compile assets
+npm run dev
 
-# 8. Iniciar el servidor
+# 8. Start the development server
 php artisan serve
+
+# 9. (In another terminal) Start the queue worker
+php artisan queue:work redis
+
+# 10. (Optional) Listen to Stripe webhooks locally
+stripe listen --forward-to localhost:8000/stripe/webhook
 ```
 
-#### Configurar `.env`
+#### Configure `.env`
 
-Edita el archivo `.env` con los valores de tu entorno local:
+Edit the `.env` file with your local environment values:
 
 ```env
 APP_NAME=MonetizaYa
@@ -295,26 +300,9 @@ CASHIER_CURRENCY=eur
 PLATFORM_COMMISSION_PERCENTAGE=10
 ```
 
-```bash
-# 6. Ejecutar migraciones y seeders base
-php artisan migrate --seed
+The application will be available at `http://localhost:8000`.
 
-# 7. Compilar assets
-npm run dev
-
-# 8. Levantar el servidor de desarrollo
-php artisan serve
-
-# 9. (En otra terminal) Iniciar el worker de colas
-php artisan queue:work redis
-
-# 10. (Opcional) Escuchar webhooks de Stripe en local
-stripe listen --forward-to localhost:8000/stripe/webhook
-```
-
-La aplicación estará disponible en `http://localhost:8000`.
-
-El seeder crea un usuario administrador por defecto:
+The seeder creates a default admin user:
 
 ```
 Email: admin@monetizaya.test
@@ -323,41 +311,46 @@ Password: password
 
 ---
 
-## Estructura del proyecto
+## Project structure
 
 ```
 monetizaya/
 ├── app/
-│   ├── Console/            # Comandos Artisan personalizados
-│   ├── Events/             # Eventos del dominio (SubscriptionCreated, ContentPublished...)
+│   ├── Console/            # Custom Artisan commands
+│   ├── Enums/              # PHP backed enums (ContentStatus, TransactionStatus, TransactionType)
+│   ├── Events/             # Domain events (SubscriptionCreated, ContentPublished...)
 │   ├── Http/
-│   │   ├── Controllers/    # Controladores delgados
-│   │   ├── Livewire/       # Componentes Livewire
-│   │   └── Middleware/     # Middlewares personalizados (CheckSubscription, etc.)
-│   ├── Jobs/               # Jobs asíncronos (SendWelcomeEmail, ProcessDownload...)
-│   ├── Listeners/          # Listeners de eventos
-│   ├── Models/             # Modelos Eloquent
-│   ├── Policies/           # Políticas de autorización
-│   ├── Services/           # Lógica de negocio (SubscriptionService, RevenueService...)
-│   └── Webhooks/           # Handlers de webhooks de Stripe
-├── config/                 # Configuración de la aplicación
+│   │   ├── Controllers/    # Thin controllers
+│   │   ├── Middleware/     # Custom middleware (CheckSubscription, EnsureCreator, EnsureAdmin)
+│   │   └── ...
+│   ├── Jobs/               # Async jobs (SendWelcomeEmail, ProcessDownload...)
+│   ├── Listeners/          # Event listeners
+│   ├── Models/             # Eloquent models
+│   ├── Policies/           # Authorization policies
+│   ├── Services/           # Business logic (SubscriptionService, RevenueService...)
+│   ├── View/Components/    # Blade view components
+│   └── Webhooks/           # Stripe webhook handlers
+├── bootstrap/
+├── config/                 # Application configuration
 ├── database/
+│   ├── factories/          # Model factories for testing
 │   ├── migrations/
 │   └── seeders/
+├── public/
 ├── resources/
 │   ├── css/
 │   ├── js/
 │   └── views/
-│       ├── components/     # Componentes Blade reutilizables
-│       ├── creator/        # Vistas del panel de creador
-│       ├── admin/          # Vistas del panel de administración
+│       ├── components/     # Reusable Blade components
+│       ├── creator/        # Creator panel views
+│       ├── admin/          # Admin panel views
 │       └── layouts/
 ├── routes/
 │   ├── web.php
-│   ├── api.php
-│   └── webhooks.php        # Rutas de webhooks separadas del resto
+│   ├── auth.php
+│   └── console.php
 ├── storage/
-│   └── app/private/        # Archivos temporales (no para producción permanente)
+│   └── app/private/        # Temporary files (not for permanent production use)
 └── tests/
     ├── Feature/
     └── Unit/
@@ -367,75 +360,75 @@ monetizaya/
 
 ## Roadmap
 
-### v1.0 — Lanzamiento inicial
+### v1.0 — Initial release
 
-- [x] Autenticación y roles (usuario, creador, admin)
-- [x] Perfil público de creador
-- [x] Posts con control de visibilidad
-- [x] Recursos descargables con URLs firmadas
-- [x] Suscripciones mensuales vía Stripe Checkout
-- [x] Revenue share con Stripe Connect
-- [x] Panel de creador con métricas básicas
-- [x] Panel de administración
-- [x] Emails transaccionales
-- [x] Navegación SPA con Livewire Volt (wire:navigate)
-- [x] Modo oscuro completo con toggle persistente
-- [x] UI/UX profesional con Tailwind CSS 4
-- [ ] Formularios de autenticación con mensajes seguros en inglés
-- [ ] Traducciones completas en `lang/en/` (auth, passwords, validation, profile)
-- [ ] Toast notifications profesionales con auto-dismiss y cierre manual responsive
-- [x] Políticas de autorización para contenido premium
-- [x] Middleware de roles (creator, admin)
-- [x] Servicios de negocio (SubscriptionService, RevenueService)
-- [x] Webhook handler de Stripe para eventos de pago
-- [x] Modelos y migraciones (Post, Resource, Course, Module, Lesson, Transaction)
+- [x] Authentication and roles (user, creator, admin)
+- [x] Creator public profile
+- [x] Posts with visibility control
+- [x] Downloadable resources with signed URLs
+- [x] Monthly subscriptions via Stripe Checkout
+- [x] Revenue share calculation
+- [x] Creator dashboard with basic metrics
+- [x] Admin panel
+- [x] Transactional emails
+- [x] SPA navigation with Livewire Volt (wire:navigate)
+- [x] Complete dark mode with persistent toggle
+- [x] Professional UI/UX with Tailwind CSS 4
+- [x] Secure auth forms with English messages
+- [ ] Toast notifications with auto-dismiss and responsive manual close
+- [ ] Complete translations in `lang/en/` (auth, passwords, validation, profile)
+- [x] Authorization policies for premium content
+- [x] Role middleware (creator, admin)
+- [x] Business services (SubscriptionService, RevenueService)
+- [x] Stripe webhook handler for payment events
+- [x] Models and migrations (Post, Resource, Course, Module, Lesson, Transaction)
 
-### v1.1 — Cursos
+### v1.1 — Courses
 
-- [ ] Módulos y lecciones con orden configurable
-- [ ] Progreso del alumno
-- [ ] Acceso secuencial opcional
-- [ ] Emisión de certificado de finalización (PDF)
+- [ ] Modules and lessons with configurable ordering
+- [ ] Student progress tracking
+- [ ] Optional sequential access
+- [ ] Completion certificate issuance (PDF)
 
-### v1.2 — Monetización avanzada
+### v1.2 — Advanced monetization
 
-- [ ] Niveles de suscripción (tiers) con beneficios diferenciados
-- [ ] Contenido de pago único (fuera de suscripción)
-- [ ] Códigos de descuento y acceso gratuito temporal
+- [ ] Subscription tiers with differentiated benefits
+- [ ] One-time payment content (outside subscription)
+- [ ] Discount codes and temporary free access
 
-### v1.3 — Comunidad y engagement
+### v1.3 — Community and engagement
 
-- [ ] Sistema de comentarios en posts y lecciones
-- [ ] Notificaciones push (web push API)
-- [ ] Feed de actividad del suscriptor
+- [ ] Comment system on posts and lessons
+- [ ] Push notifications (web push API)
+- [ ] Subscriber activity feed
 
-### v2.0 — Plataforma multi-tenant / white-label
+### v2.0 — Multi-tenant / white-label platform
 
-- [ ] Dominio personalizado por creador
-- [ ] Temas visuales configurables
-- [ ] API pública para integraciones externas
-
----
-
-## Buenas prácticas
-
-- **Arquitectura en capas**: los controladores no contienen lógica de negocio; esta reside en servicios testables.
-- **Eventos y listeners**: las acciones secundarias (emails, notificaciones, registro de métricas) se desacoplan mediante el sistema de eventos de Laravel.
-- **Tests desde el inicio**: cobertura de Feature tests para los flujos críticos (suscripción, acceso a contenido, webhooks). Se utiliza `RefreshDatabase` y factories para aislar cada test.
-- **Migraciones atómicas**: cada migración hace una sola cosa; se evitan migraciones que modifican y crean en el mismo archivo.
-- **Convenciones de nomenclatura**: se sigue el estándar de Laravel para modelos, controladores, policies y jobs.
-- **Variables de entorno tipadas**: valores booleanos y numéricos casteados en `config/`; nunca se llama a `env()` directamente desde el código de aplicación.
-- **Secrets fuera del repositorio**: `.env` en `.gitignore`; `.env.example` documentado y actualizado en cada PR.
-- **Logs estructurados**: uso de canales de log diferenciados para pagos, errores de webhook y actividad de usuario.
+- [ ] Custom domain per creator
+- [ ] Configurable visual themes
+- [ ] Public API for external integrations
 
 ---
 
-## Licencia
+## Best practices
 
-Este proyecto está licenciado bajo la [MIT License](LICENSE).
+- **Layered architecture**: controllers contain no business logic; it resides in testable services.
+- **Events and listeners**: secondary actions (emails, notifications, metric logging) are decoupled via Laravel's event system.
+- **Tests from the start**: Feature test coverage for critical flows (subscription, content access, webhooks). Uses `RefreshDatabase` and factories to isolate each test.
+- **Atomic migrations**: each migration does one thing; avoid migrations that modify and create in the same file.
+- **Naming conventions**: follows Laravel standards for models, controllers, policies, and jobs.
+- **Typed environment variables**: boolean and numeric values cast in `config/`; never call `env()` directly from application code.
+- **Secrets outside the repository**: `.env` in `.gitignore`; `.env.example` documented and updated in each PR.
+- **Structured logs**: differentiated log channels for payments, webhook errors, and user activity.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
 <p align="center">
-  Construido con ☕ y Laravel · <a href="https://github.com/tudor-constantin/monetizaya">github.com/tudor-constantin</a>
+  Built with ☕ and Laravel · <a href="https://github.com/tudor-constantin/monetizaya">github.com/tudor-constantin</a>
 </p>
