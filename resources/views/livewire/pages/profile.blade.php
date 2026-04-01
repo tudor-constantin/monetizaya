@@ -11,8 +11,8 @@ new #[Layout('layouts.app')] class extends Component
 <div>
     <x-slot name="header">
         <div>
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Profile</h2>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Manage your account settings.</p>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('ui.profile') }}</h2>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.manage_account_settings') }}</p>
         </div>
     </x-slot>
 

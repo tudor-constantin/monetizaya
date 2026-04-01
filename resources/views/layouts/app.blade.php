@@ -33,5 +33,7 @@
             </div>
         </footer>
     </div>
+
+    <x-toasts />
 </body>
 </html>

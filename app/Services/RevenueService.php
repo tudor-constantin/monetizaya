@@ -61,12 +61,19 @@ class RevenueService
                 ->whereYear('paid_at', now()->year);
         }
 
-        return $query->selectRaw('
-            SUM(gross_amount) as gross_earnings,
-            SUM(platform_fee) as total_fees,
-            SUM(net_amount) as net_earnings,
+        $result = $query->selectRaw('
+            COALESCE(SUM(gross_amount), 0) as gross_earnings,
+            COALESCE(SUM(platform_fee), 0) as total_fees,
+            COALESCE(SUM(net_amount), 0) as net_earnings,
             COUNT(*) as transaction_count
-        ')->first()->toArray();
+        ')->first();
+
+        return $result ? $result->toArray() : [
+            'gross_earnings' => 0,
+            'total_fees' => 0,
+            'net_earnings' => 0,
+            'transaction_count' => 0,
+        ];
     }
 
     public function getPlatformRevenue(?string $period = null): array
@@ -78,10 +85,16 @@ class RevenueService
                 ->whereYear('paid_at', now()->year);
         }
 
-        return $query->selectRaw('
-            SUM(platform_fee) as total_revenue,
-            SUM(gross_amount) as total_gmv,
+        $result = $query->selectRaw('
+            COALESCE(SUM(platform_fee), 0) as total_revenue,
+            COALESCE(SUM(gross_amount), 0) as total_gmv,
             COUNT(*) as transaction_count
-        ')->first()->toArray();
+        ')->first();
+
+        return $result ? $result->toArray() : [
+            'total_revenue' => 0,
+            'total_gmv' => 0,
+            'transaction_count' => 0,
+        ];
     }
 }

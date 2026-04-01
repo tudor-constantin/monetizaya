@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Creator\Posts;
 
 use App\Models\Post;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -38,7 +39,14 @@ class Edit extends Component
 
     public function save(): void
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $errors = collect($e->validator->errors()->all())->join('. ');
+            $this->dispatch('toast', type: 'error', message: $errors);
+
+            return;
+        }
 
         $this->post->update([
             'title' => $this->title,
@@ -47,6 +55,11 @@ class Edit extends Component
             'is_premium' => $this->isPremium,
             'status' => $this->status,
             'published_at' => $this->status === 'published' && ! $this->post->published_at ? now() : $this->post->published_at,
+        ]);
+
+        session()->flash('toast', [
+            'type' => 'success',
+            'message' => 'Post updated successfully.',
         ]);
 
         $this->redirect(route('creator.posts.index'), navigate: true);

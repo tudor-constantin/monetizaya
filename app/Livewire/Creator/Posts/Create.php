@@ -39,6 +39,11 @@ class Create extends Component
             'published_at' => $this->status === 'published' ? now() : null,
         ]);
 
+        session()->flash('toast', [
+            'type' => 'success',
+            'message' => 'Post created successfully.',
+        ]);
+
         $this->redirect(route('creator.posts.index'), navigate: true);
     }
 

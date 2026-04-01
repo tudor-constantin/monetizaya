@@ -14,7 +14,7 @@ class EnsureCreator
     {
         $user = $request->user();
 
-        if (! $user || ! $user->hasRole('creator') && ! $user->hasRole('admin')) {
+        if (! $user || (! $user->hasRole('creator') && ! $user->hasRole('admin'))) {
             abort(403, 'Creator access required.');
         }
 

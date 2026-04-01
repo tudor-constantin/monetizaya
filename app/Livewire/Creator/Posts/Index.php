@@ -12,10 +12,29 @@ use Livewire\Component;
 #[Layout('layouts.app')]
 class Index extends Component
 {
-    public function delete($postId): void
+    public ?int $confirmingPostDeletion = null;
+
+    public function confirmDelete($postId): void
     {
-        $post = Post::where('user_id', Auth::id())->findOrFail($postId);
+        $this->confirmingPostDeletion = (int) $postId;
+    }
+
+    public function deletePost(): void
+    {
+        if (! $this->confirmingPostDeletion) {
+            return;
+        }
+
+        $post = Post::where('user_id', Auth::id())->findOrFail($this->confirmingPostDeletion);
         $post->delete();
+
+        session()->flash('toast', [
+            'type' => 'success',
+            'message' => 'Post deleted successfully.',
+        ]);
+
+        $this->confirmingPostDeletion = null;
+        $this->redirect(route('creator.posts.index'));
     }
 
     public function render()

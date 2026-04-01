@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'slug', 'avatar', 'cover_image', 'bio', 'social_links', 'subscription_price', 'is_creator', 'is_active'])]
 class User extends Authenticatable
 {
     use Billable, HasFactory, HasRoles, Notifiable;
