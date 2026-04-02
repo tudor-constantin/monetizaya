@@ -11,7 +11,7 @@
             @if ($creators->count() > 0)
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($creators as $creator)
-                        <div class="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-md transition-all">
+                        <div class="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
                             <div class="pointer-events-none absolute -top-8 -right-8 w-24 h-24 rounded-full bg-blue-100/80 dark:bg-blue-500/10 blur-2xl"></div>
                             <div class="-mx-6 -mt-6 mb-4 h-24 bg-gradient-to-r from-blue-800 to-blue-600 relative overflow-hidden">
                                 @if($creator->cover_image_url)

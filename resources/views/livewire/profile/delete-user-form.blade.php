@@ -39,7 +39,7 @@ new class extends Component
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('ui.delete_account') }}</h3>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.delete_account_confirm') }}</p>
                             <div class="mt-4">
-                                <input wire:model="password" id="delete_password" type="password" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-red-500 dark:focus:border-red-400 focus:ring-red-500 dark:focus:ring-red-400 sm:text-sm px-4 py-2.5" placeholder="{{ __('ui.placeholder_enter_password_confirm') }}">
+                                <input wire:model="password" id="delete_password" type="password" class="block w-full rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-2.5" placeholder="{{ __('ui.placeholder_enter_password_confirm') }}">
                                 <x-input-error class="mt-1.5" :messages="$errors->get('password')" />
                             </div>
                         </div>

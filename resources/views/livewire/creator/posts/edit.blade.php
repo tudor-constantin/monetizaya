@@ -14,17 +14,17 @@
         <form wire:submit="save" class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8 space-y-6">
             <div>
                 <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ __('ui.title') }}</label>
-                <input wire:model.defer="title" id="title" type="text" required class="block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-2.5">
+                <input wire:model.defer="title" id="title" type="text" required class="block w-full rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-2.5">
             </div>
 
             <div>
                 <label for="excerpt" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ __('ui.excerpt') }}</label>
-                <textarea wire:model.defer="excerpt" id="excerpt" rows="3" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-3" placeholder="{{ __('ui.excerpt_placeholder') }}"></textarea>
+                <textarea wire:model.defer="excerpt" id="excerpt" rows="3" class="block w-full rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-2.5" placeholder="{{ __('ui.excerpt_placeholder') }}"></textarea>
             </div>
 
             <div>
                 <label for="body" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ __('ui.content') }}</label>
-                <textarea wire:model.defer="body" id="body" rows="12" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-3"></textarea>
+                <textarea wire:model.defer="body" id="body" rows="12" class="block w-full rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-2.5"></textarea>
             </div>
 
             <div>
@@ -52,7 +52,7 @@
                 <div>
                     <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ __('ui.status') }}</label>
                     <div class="relative">
-                        <select wire:model.defer="status" id="status" class="block w-full appearance-none bg-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white shadow-sm hover:border-blue-400 dark:hover:border-blue-500 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-2.5 pr-10 transition-colors cursor-pointer">
+                        <select wire:model.defer="status" id="status" class="block w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2.5 pr-10 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400">
                             <option value="draft">{{ __('ui.draft') }}</option>
                             <option value="published">{{ __('ui.published') }}</option>
                             <option value="archived">{{ __('ui.archived') }}</option>

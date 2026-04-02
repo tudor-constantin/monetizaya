@@ -99,7 +99,7 @@
                         </div>
                         <div class="mt-3 space-y-2">
                             @forelse($recentPosts as $recentPost)
-                                <a href="{{ route('creators.posts.show', [$creator, $recentPost]) }}" class="block rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 hover:border-blue-300 dark:hover:border-blue-500 transition-colors" wire:navigate>
+                                <a href="{{ route('creators.posts.show', [$creator, $recentPost]) }}" class="block rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 hover:shadow-sm transition-shadow" wire:navigate>
                                     <p class="text-sm font-medium text-slate-900 dark:text-white line-clamp-2">{{ $recentPost->title }}</p>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ $recentPost->published_at?->format('M d, Y') }}</p>
                                 </a>

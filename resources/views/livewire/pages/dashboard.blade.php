@@ -74,20 +74,20 @@ new #[Layout('layouts.app')] class extends Component
             </section>
 
             <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                <a href="{{ route('profile') }}" class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5 hover:border-blue-300 dark:hover:border-blue-500 transition-all" wire:navigate>
+                <a href="{{ route('profile') }}" class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5 hover:shadow-sm transition-shadow" wire:navigate>
                     <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Account</p>
                     <h4 class="mt-2 text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300">{{ __('ui.profile_settings') }}</h4>
                     <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.update_account_details') }}</p>
                 </a>
 
-                <a href="{{ route('creators.index') }}" class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5 hover:border-blue-300 dark:hover:border-blue-500 transition-all" wire:navigate>
+                <a href="{{ route('creators.index') }}" class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5 hover:shadow-sm transition-shadow" wire:navigate>
                     <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Explore</p>
                     <h4 class="mt-2 text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300">{{ __('ui.discover_creators') }}</h4>
                     <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.explore_creator_profiles') }}</p>
                 </a>
 
                 @if(auth()->user()->hasRole('creator') || auth()->user()->hasRole('admin'))
-                    <a href="{{ route('creator.dashboard') }}" class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5 hover:border-blue-300 dark:hover:border-blue-500 transition-all" wire:navigate>
+                    <a href="{{ route('creator.dashboard') }}" class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5 hover:shadow-sm transition-shadow" wire:navigate>
                         <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Studio</p>
                         <h4 class="mt-2 text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300">{{ __('ui.creator_studio') }}</h4>
                         <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.manage_content_earnings') }}</p>
@@ -95,7 +95,7 @@ new #[Layout('layouts.app')] class extends Component
                 @endif
 
                 @if(auth()->user()->hasRole('admin'))
-                    <a href="{{ route('admin.dashboard') }}" class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5 hover:border-rose-300 dark:hover:border-rose-500 transition-all" wire:navigate>
+                    <a href="{{ route('admin.dashboard') }}" class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5 hover:shadow-sm transition-shadow" wire:navigate>
                         <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Admin</p>
                         <h4 class="mt-2 text-lg font-bold text-slate-900 dark:text-white group-hover:text-rose-700 dark:group-hover:text-rose-300">{{ __('ui.admin_panel') }}</h4>
                         <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.manage_platform') }}</p>

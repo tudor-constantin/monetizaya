@@ -239,7 +239,7 @@
                 @if ($creators->count() > 0)
                     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($creators as $creator)
-                            <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700">
+                            <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow dark:border-slate-800 dark:bg-slate-900">
                                 <div class="mb-4 h-24 overflow-hidden rounded-xl bg-gradient-to-r from-blue-800 via-blue-700 to-blue-600">
                                     @if ($creator->cover_image_url)
                                         <img src="{{ $creator->cover_image_url }}" alt="" class="h-full w-full object-cover">
