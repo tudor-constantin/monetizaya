@@ -99,7 +99,7 @@
         @endphp
 
         <header class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-            <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <div class="ui-shell py-4">
                 <nav aria-label="Breadcrumb">
                     <ol class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                         @foreach ($breadcrumbs as $crumb)
@@ -122,7 +122,7 @@
         </main>
 
         <footer class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 py-6 mt-auto">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="ui-shell">
                 <p class="text-center text-sm text-gray-500 dark:text-gray-400">
                     &copy; {{ date('Y') }} {{ config('app.name') }}
                 </p>

@@ -15,13 +15,25 @@
     </a>
 
     <header class="sticky top-0 z-50 border-b border-slate-200/90 bg-white/90 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/90">
-        <nav class="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="{{ __('ui.main_navigation') }}">
-            <a href="{{ route('home') }}" class="inline-flex items-center gap-2" wire:navigate>
-                <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white" aria-hidden="true">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </span>
-                <span class="text-base font-bold tracking-tight text-slate-900 dark:text-white">{{ config('app.name') }}</span>
-            </a>
+        <nav class="ui-shell flex h-16 items-center justify-between" aria-label="{{ __('ui.main_navigation') }}">
+            <div class="flex items-center gap-3 sm:gap-8">
+                <a href="{{ route('home') }}" class="inline-flex items-center gap-2 shrink-0" wire:navigate>
+                    <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white" aria-hidden="true">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </span>
+                    <span class="text-lg font-bold text-slate-900 dark:text-white">{{ config('app.name') }}</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="{{ route('home') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('home') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
+                        {{ __('ui.home') }}
+                    </a>
+
+                    <a href="{{ route('creators.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('creators.index') || request()->routeIs('creators.show') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
+                        {{ __('ui.discover_creators') }}
+                    </a>
+                </div>
+            </div>
 
             <div class="flex items-center gap-2 sm:gap-3">
                 <button onclick="window.toggleDarkMode()" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="{{ __('ui.toggle_dark_mode') }}" title="{{ __('ui.toggle_dark_mode') }}" type="button">
@@ -50,7 +62,7 @@
     <main id="contenido">
         <section class="relative overflow-hidden border-b border-slate-200 pb-16 pt-14 sm:pt-16 lg:pb-24 lg:pt-20 dark:border-slate-800" aria-labelledby="hero-title">
             <div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(11,87,208,0.18),transparent_56%),radial-gradient(circle_at_top_left,rgba(59,130,246,0.14),transparent_52%),linear-gradient(to_bottom,#f8fbff_0%,#f8fafc_65%)] dark:bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.16),transparent_56%),radial-gradient(circle_at_top_left,rgba(37,99,235,0.12),transparent_52%),linear-gradient(to_bottom,#020617_0%,#020617_100%)]"></div>
-            <div class="mx-auto grid w-full max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-8">
+            <div class="ui-shell grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
                 <div class="lg:col-span-7">
                     <span class="mb-5 inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-800 dark:border-blue-900/80 dark:bg-blue-900/30 dark:text-blue-200">
                         {{ __('ui.monetization_platform') }}
@@ -107,7 +119,7 @@
         </section>
 
         <section id="features" class="border-y border-slate-200 bg-white py-16 dark:border-slate-800 dark:bg-slate-950" aria-labelledby="features-title">
-            <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="ui-shell">
                 <div class="mb-10 max-w-2xl">
                     <h2 id="features-title" class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">{{ __('ui.everything_you_need') }}</h2>
                     <p class="mt-3 text-lg text-slate-700 dark:text-slate-300">{{ __('ui.tools_recurring_revenue') }}</p>
@@ -166,7 +178,7 @@
         </section>
 
         <section class="py-16 bg-slate-100/80 dark:bg-slate-900/40" aria-labelledby="cta-title">
-            <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="ui-shell">
                 <div class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10 dark:border-slate-800 dark:bg-slate-900">
                     <div class="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600"></div>
                     <div class="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-blue-100/70 blur-3xl dark:bg-blue-900/20"></div>
@@ -225,7 +237,7 @@
         </section>
 
         <section class="py-16 bg-white dark:bg-slate-950" aria-labelledby="creators-title">
-            <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="ui-shell">
                 <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <h2 id="creators-title" class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">{{ __('ui.discover_creators') }}</h2>
@@ -289,7 +301,7 @@
     </main>
 
     <footer class="border-t border-slate-200 py-8 dark:border-slate-800">
-        <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="ui-shell">
             <p class="text-center text-sm text-slate-600 dark:text-slate-400">&copy; {{ date('Y') }} {{ config('app.name') }}</p>
         </div>
     </footer>

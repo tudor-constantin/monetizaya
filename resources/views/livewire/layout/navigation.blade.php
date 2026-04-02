@@ -20,7 +20,7 @@ new class extends Component
 }; ?>
 
 <nav x-data="{ open: false }" class="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="ui-shell">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center gap-3 sm:gap-8">
                 <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0" wire:navigate>
@@ -31,6 +31,10 @@ new class extends Component
                 </a>
 
                 <div class="hidden md:flex items-center gap-1">
+                    <a href="{{ route('home') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('home') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
+                        {{ __('ui.home') }}
+                    </a>
+
                     <a href="{{ route('dashboard') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('dashboard') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
                         {{ __('ui.dashboard') }}
                     </a>
@@ -118,6 +122,7 @@ new class extends Component
     @auth
     <div x-show="open" x-transition class="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
         <div class="px-4 py-3 space-y-1">
+            <a href="{{ route('home') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('home') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}" wire:navigate>{{ __('ui.home') }}</a>
             <a href="{{ route('dashboard') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('dashboard') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}" wire:navigate>{{ __('ui.dashboard') }}</a>
             <a href="{{ route('creators.index') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('creators.index') || request()->routeIs('creators.show') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}" wire:navigate>{{ __('ui.discover_creators') }}</a>
             @if(auth()->user()->hasRole('creator') || auth()->user()->hasRole('admin'))

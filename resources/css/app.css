@@ -3,6 +3,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
+    html {
+        scrollbar-gutter: stable;
+    }
+
     :root {
         --brand-blue: #0b57d0;
         --brand-blue-deep: #1643a3;
@@ -25,6 +29,10 @@
 }
 
 @layer components {
+    .ui-shell {
+        @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    }
+
     .ui-card {
         @apply rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-slate-700 dark:bg-slate-900;
     }
