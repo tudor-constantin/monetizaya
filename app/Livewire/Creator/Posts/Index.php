@@ -34,7 +34,7 @@ class Index extends Component
         ]);
 
         $this->confirmingPostDeletion = null;
-        $this->redirect(route('creator.posts.index'));
+        $this->redirect(route('creator.posts.index'), navigate: true);
     }
 
     public function render()

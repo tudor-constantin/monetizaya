@@ -1,13 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div>
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('ui.discover_creators') }}</h2>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.explore_creator_profiles') }}</p>
-        </div>
-    </x-slot>
-
     <div class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('ui.discover_creators') }}</h2>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.explore_creator_profiles') }}</p>
+            </div>
+
             @if ($creators->count() > 0)
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($creators as $creator)

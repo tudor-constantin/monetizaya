@@ -2,9 +2,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
             <div>
-                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ __('ui.creator_studio_title') }}</h1>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('ui.creator_studio_title') }}</h2>
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.creator_studio_desc') }}</p>
             </div>
+
             <div class="flex items-center gap-3">
                 <a href="{{ route('profile') }}#creator-profile" class="inline-flex items-center px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium rounded-lg transition-colors" wire:navigate>
                     {{ __('ui.customize_profile') }}

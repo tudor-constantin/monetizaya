@@ -31,7 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Volt::route('dashboard', 'creator.dashboard')->name('dashboard');
         Volt::route('posts', 'creator.posts.index')->name('posts.index');
         Volt::route('posts/create', 'creator.posts.create')->name('posts.create');
-        Volt::route('posts/{post}/edit', 'creator.posts.edit')->name('posts.edit');
+        Volt::route('posts/{post:slug}/edit', 'creator.posts.edit')->name('posts.edit');
         Volt::route('resources', 'creator.resources.index')->name('resources.index');
         Volt::route('courses', 'creator.courses.index')->name('courses.index');
         Volt::route('analytics', 'creator.analytics')->name('analytics');

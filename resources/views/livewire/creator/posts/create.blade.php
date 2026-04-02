@@ -1,13 +1,6 @@
 <div class="py-8">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-8">
-            <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
-                <a href="{{ route('creator.dashboard') }}" class="hover:text-gray-900 dark:hover:text-white transition-colors" wire:navigate>{{ __('ui.dashboard') }}</a>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                <a href="{{ route('creator.posts.index') }}" class="hover:text-gray-900 dark:hover:text-white transition-colors" wire:navigate>{{ __('ui.posts') }}</a>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                <span class="text-gray-900 dark:text-white font-medium">{{ __('ui.new_post') }}</span>
-            </div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ __('ui.create_new_post') }}</h1>
         </div>
 
@@ -38,7 +31,7 @@
 
             <div class="flex flex-col sm:flex-row sm:items-center gap-6 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div class="flex-1">
-                    <label class="flex items-start gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500/40 transition-colors cursor-pointer">
+                    <label class="ui-card-hover flex items-start gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer">
                         <span class="relative inline-flex items-center mt-0.5">
                             <input type="checkbox" wire:model.defer="isPremium" class="peer sr-only">
                             <span class="w-11 h-6 rounded-full bg-gray-300 dark:bg-gray-600 peer-checked:bg-blue-600 transition-colors"></span>
@@ -49,8 +42,8 @@
                 </div>
                 <div>
                     <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ __('ui.status') }}</label>
-                    <div class="relative">
-                        <select wire:model.defer="status" id="status" class="block w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2.5 pr-10 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400">
+                    <div class="ui-card-hover rounded-lg relative">
+                        <select wire:model.defer="status" id="status" class="block w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2.5 pr-10 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-600 dark:focus:border-blue-500 focus:ring-blue-600 dark:focus:ring-blue-500">
                             <option value="draft">{{ __('ui.draft') }}</option>
                             <option value="published">{{ __('ui.published') }}</option>
                         </select>

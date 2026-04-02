@@ -159,43 +159,6 @@ new class extends Component
     </div>
 
     <form wire:submit="saveCreatorProfile" class="space-y-5">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
-                <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ __('ui.avatar') }}</p>
-                <div class="mt-3 flex items-center gap-4">
-                    @if($avatarFile)
-                        <img src="{{ $avatarFile->temporaryUrl() }}" alt="" class="w-20 h-20 rounded-xl object-cover">
-                    @elseif($avatarPreview)
-                        <img src="{{ $avatarPreview }}" alt="" class="w-20 h-20 rounded-xl object-cover">
-                    @else
-                        <div class="w-20 h-20 rounded-xl bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300 flex items-center justify-center text-2xl font-bold">
-                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                        </div>
-                    @endif
-
-                    <div class="flex-1">
-                        <input wire:model="avatarFile" type="file" accept="image/png,image/jpeg,image/webp" class="block w-full cursor-pointer text-sm text-gray-600 dark:text-gray-300 file:cursor-pointer file:mr-3 file:rounded-lg file:border-0 file:bg-blue-600 hover:file:bg-blue-700 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white transition-colors">
-                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ __('ui.image_requirements_avatar') }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
-                <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ __('ui.cover') }}</p>
-                <div class="mt-3">
-                    <div class="h-24 rounded-lg bg-gradient-to-r from-blue-800 to-blue-600 overflow-hidden">
-                        @if($coverFile)
-                            <img src="{{ $coverFile->temporaryUrl() }}" alt="" class="w-full h-full object-cover">
-                        @elseif($coverPreview)
-                            <img src="{{ $coverPreview }}" alt="" class="w-full h-full object-cover">
-                        @endif
-                    </div>
-                    <input wire:model="coverFile" type="file" accept="image/png,image/jpeg,image/webp" class="mt-3 block w-full cursor-pointer text-sm text-gray-600 dark:text-gray-300 file:cursor-pointer file:mr-3 file:rounded-lg file:border-0 file:bg-blue-600 hover:file:bg-blue-700 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white transition-colors">
-                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ __('ui.image_requirements_cover') }}</p>
-                </div>
-            </div>
-        </div>
-
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="sm:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ __('ui.creator_tagline') }}</label>
@@ -230,6 +193,40 @@ new class extends Component
             <div>
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">YouTube</label>
                 <input wire:model.defer="youtube" type="url" class="block w-full rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-2.5" placeholder="https://youtube.com/...">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ __('ui.avatar') }}</p>
+                <div class="mt-3">
+                    <div class="h-24 w-24 rounded-xl overflow-hidden bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300 flex items-center justify-center text-2xl font-bold">
+                        @if($avatarFile)
+                            <img src="{{ $avatarFile->temporaryUrl() }}" alt="" class="w-full h-full object-cover">
+                        @elseif($avatarPreview)
+                            <img src="{{ $avatarPreview }}" alt="" class="w-full h-full object-cover">
+                        @else
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        @endif
+                    </div>
+                    <input wire:model="avatarFile" type="file" accept="image/png,image/jpeg,image/webp" class="mt-3 block w-full cursor-pointer text-sm text-gray-600 dark:text-gray-300 file:cursor-pointer file:mr-3 file:rounded-lg file:border-0 file:bg-blue-600 hover:file:bg-blue-700 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white transition-colors">
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ __('ui.image_requirements_avatar') }}</p>
+                </div>
+            </div>
+
+            <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ __('ui.cover') }}</p>
+                <div class="mt-3">
+                    <div class="h-24 rounded-lg bg-gradient-to-r from-blue-800 to-blue-600 overflow-hidden">
+                        @if($coverFile)
+                            <img src="{{ $coverFile->temporaryUrl() }}" alt="" class="w-full h-full object-cover">
+                        @elseif($coverPreview)
+                            <img src="{{ $coverPreview }}" alt="" class="w-full h-full object-cover">
+                        @endif
+                    </div>
+                    <input wire:model="coverFile" type="file" accept="image/png,image/jpeg,image/webp" class="mt-3 block w-full cursor-pointer text-sm text-gray-600 dark:text-gray-300 file:cursor-pointer file:mr-3 file:rounded-lg file:border-0 file:bg-blue-600 hover:file:bg-blue-700 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white transition-colors">
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ __('ui.image_requirements_cover') }}</p>
+                </div>
             </div>
         </div>
 

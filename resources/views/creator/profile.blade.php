@@ -1,14 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <nav class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-            <a href="{{ route('home') }}" class="hover:text-gray-900 dark:hover:text-white transition-colors" wire:navigate>{{ __('ui.home') }}</a>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            <a href="{{ route('creators.index') }}" class="hover:text-gray-900 dark:hover:text-white transition-colors" wire:navigate>{{ __('ui.creator') }}</a>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            <span class="text-gray-900 dark:text-white font-medium">{{ $creator->name }}</span>
-        </nav>
-    </x-slot>
-
     <div class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <section class="relative rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">

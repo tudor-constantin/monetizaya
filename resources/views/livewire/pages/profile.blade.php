@@ -9,15 +9,13 @@ new #[Layout('layouts.app')] class extends Component
 }; ?>
 
 <div>
-    <x-slot name="header">
-        <div>
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('ui.profile') }}</h2>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.manage_account_settings') }}</p>
-        </div>
-    </x-slot>
-
     <div class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('ui.profile') }}</h2>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.manage_account_settings') }}</p>
+            </div>
+
             <section class="rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 p-6 sm:p-8">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>

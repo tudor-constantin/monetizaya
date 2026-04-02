@@ -8,6 +8,7 @@ use App\Models\Post;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -37,7 +38,14 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $errors = collect($e->validator->errors()->all())->join('. ');
+            $this->dispatch('toast', type: 'error', message: $errors);
+
+            return;
+        }
 
         $coverImagePath = null;
 

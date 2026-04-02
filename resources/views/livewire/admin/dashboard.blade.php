@@ -1,7 +1,7 @@
 <div class="py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-8">
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ __('ui.admin_dashboard') }}</h1>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('ui.admin_dashboard') }}</h2>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.platform_overview') }}</p>
         </div>
 

@@ -44,15 +44,13 @@ new #[Layout('layouts.app')] class extends Component
 }; ?>
 
 <div>
-    <x-slot name="header">
-        <div>
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('ui.dashboard') }}</h2>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.welcome_back_name', ['name' => auth()->user()->name]) }}</p>
-        </div>
-    </x-slot>
-
     <div class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('ui.dashboard') }}</h2>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.welcome_back_name', ['name' => auth()->user()->name]) }}</p>
+            </div>
+
             <section class="relative overflow-hidden rounded-3xl border border-slate-200/70 dark:border-slate-700/60 bg-gradient-to-br from-blue-50 via-blue-100 to-white dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 p-6 sm:p-10">
                 <div class="pointer-events-none absolute -top-16 -right-10 h-48 w-48 rounded-full bg-blue-200/50 blur-3xl dark:bg-blue-500/20"></div>
                 <div class="pointer-events-none absolute -bottom-20 -left-8 h-52 w-52 rounded-full bg-blue-200/50 blur-3xl dark:bg-blue-500/20"></div>
