@@ -35,6 +35,8 @@ new class extends Component
 
     public string $youtube = '';
 
+    public bool $isPublic = false;
+
     public function mount(): void
     {
         /** @var User $user */
@@ -49,6 +51,7 @@ new class extends Component
         $this->twitter = (string) data_get($user->social_links, 'twitter', '');
         $this->instagram = (string) data_get($user->social_links, 'instagram', '');
         $this->youtube = (string) data_get($user->social_links, 'youtube', '');
+        $this->isPublic = (bool) $user->is_public;
     }
 
     public function saveCreatorProfile(): void
@@ -114,6 +117,7 @@ new class extends Component
             'subscription_price' => (float) $validated['subscriptionPrice'],
             'social_links' => $socialLinks,
             'is_creator' => $user->hasRole('creator') || $user->hasRole('admin'),
+            'is_public' => $this->isPublic,
         ])->save();
 
         Auth::setUser($user->fresh());
@@ -227,6 +231,18 @@ new class extends Component
                     <input wire:model="coverFile" type="file" accept="image/png,image/jpeg,image/webp" class="mt-3 block w-full cursor-pointer text-sm text-gray-600 dark:text-gray-300 file:cursor-pointer file:mr-3 file:rounded-lg file:border-0 file:bg-blue-600 hover:file:bg-blue-700 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white transition-colors">
                     <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ __('ui.image_requirements_cover') }}</p>
                 </div>
+            </div>
+        </div>
+
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+            <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ __('ui.profile_visibility') }}</p>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('ui.profile_visibility_desc') }}</p>
+            <div class="mt-3 flex items-center gap-3">
+                <button type="button" role="switch" @click="$wire.isPublic = !$wire.isPublic" :aria-checked="$wire.isPublic" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" :class="$wire.isPublic ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-600'">
+                    <span class="sr-only">{{ __('ui.toggle_visibility') }}</span>
+                    <span class="pointer-events-none inline-block h-5 w-5 translate-x-0 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" :class="$wire.isPublic ? 'translate-x-5' : 'translate-x-0'"></span>
+                </button>
+                <span class="text-sm font-medium" :class="$wire.isPublic ? 'text-blue-700 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'" x-text="$wire.isPublic ? '{{ __('ui.profile_public') }}' : '{{ __('ui.profile_private') }}'"></span>
             </div>
         </div>
 

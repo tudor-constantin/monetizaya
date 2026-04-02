@@ -39,13 +39,13 @@ new class extends Component
                         {{ __('ui.discover_creators') }}
                     </a>
 
-                    @if(auth()->user()->hasRole('creator') || auth()->user()->hasRole('admin'))
+                    @if(auth()->user()?->hasRole('creator') || auth()->user()?->hasRole('admin'))
                         <a href="{{ route('creator.dashboard') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('creator.*') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
                             {{ __('ui.creator_studio') }}
                         </a>
                     @endif
 
-                    @if(auth()->user()->hasRole('admin'))
+                    @if(auth()->user()?->hasRole('admin'))
                         <a href="{{ route('admin.dashboard') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('admin.*') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
                             {{ __('ui.admin') }}
                         </a>
@@ -53,6 +53,7 @@ new class extends Component
                 </div>
             </div>
 
+            @auth
             <div class="flex items-center gap-3">
                 <!-- Dark mode toggle -->
                 <button onclick="window.toggleDarkMode()" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="{{ __('ui.toggle_dark_mode') }}">
@@ -109,10 +110,12 @@ new class extends Component
                     <svg class="h-5 w-5" :class="{'hidden': ! open, 'block': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
+            @endauth
         </div>
     </div>
 
     <!-- Mobile menu -->
+    @auth
     <div x-show="open" x-transition class="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
         <div class="px-4 py-3 space-y-1">
             <a href="{{ route('dashboard') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('dashboard') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}" wire:navigate>{{ __('ui.dashboard') }}</a>
@@ -129,4 +132,5 @@ new class extends Component
             <button wire:click="logout" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">{{ __('ui.log_out') }}</button>
         </div>
     </div>
+    @endauth
 </nav>

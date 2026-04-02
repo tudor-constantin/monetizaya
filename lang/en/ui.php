@@ -287,4 +287,10 @@ return [
     'publish_once_sell_repeatedly' => 'Publish once, sell repeatedly, and build a recurring business around your expertise.',
     'see_all_creators' => 'See all creators',
 
+    'profile_visibility' => 'Profile visibility',
+    'profile_visibility_desc' => 'When enabled, your profile will appear in the Discover creators section on the home page.',
+    'toggle_visibility' => 'Toggle profile visibility',
+    'profile_public' => 'Public',
+    'profile_private' => 'Private',
+
 ];

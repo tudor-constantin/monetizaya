@@ -8,12 +8,12 @@ use Livewire\Volt\Volt;
 
 Route::get('/', [PublicPageController::class, 'home'])->name('home');
 
-Route::get('/creators/{user:slug}', [PublicPageController::class, 'showCreator'])->name('creators.show');
-Route::get('/creators/{user:slug}/posts/{post:slug}', [PublicPageController::class, 'showPost'])->name('creators.posts.show');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/creators', [PublicPageController::class, 'creatorsIndex'])
         ->name('creators.index');
+
+    Route::get('/creators/{user:slug}', [PublicPageController::class, 'showCreator'])->name('creators.show');
+    Route::get('/creators/{user:slug}/posts/{post:slug}', [PublicPageController::class, 'showPost'])->name('creators.posts.show');
 
     Route::post('/creators/{user:slug}/subscribe', [CreatorSubscriptionController::class, 'store'])
         ->name('creators.subscribe');

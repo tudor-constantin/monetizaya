@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password', 'slug', 'avatar', 'cover_image', 'bio', 'tagline', 'stripe_price_id', 'social_links', 'subscription_price', 'is_creator', 'is_active', 'creator_requested_at'])]
+#[Fillable(['name', 'email', 'password', 'slug', 'avatar', 'cover_image', 'bio', 'tagline', 'stripe_price_id', 'social_links', 'subscription_price', 'is_creator', 'is_active', 'is_public', 'creator_requested_at'])]
 class User extends Authenticatable
 {
     use Billable, HasFactory, HasRoles, Notifiable;
@@ -26,6 +26,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_creator' => 'boolean',
             'is_active' => 'boolean',
+            'is_public' => 'boolean',
             'social_links' => 'array',
             'subscription_price' => 'decimal:2',
             'creator_requested_at' => 'immutable_datetime',

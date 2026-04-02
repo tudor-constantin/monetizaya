@@ -104,13 +104,14 @@ final class PublicPageController extends Controller
     {
         return User::query()
             ->where('is_active', true)
+            ->where('is_public', true)
             ->whereHas('roles', fn (Builder $query) => $query->whereIn('name', ['creator', 'admin']))
             ->whereHas('posts', fn (Builder $query) => $query->published());
     }
 
     private function isPublicCreator(User $user): bool
     {
-        if (! $user->is_active) {
+        if (! $user->is_active || ! $user->is_public) {
             return false;
         }
 
