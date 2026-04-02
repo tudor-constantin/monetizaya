@@ -34,15 +34,15 @@
     }
 
     .ui-card {
-        @apply rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-slate-700 dark:bg-slate-900;
+        @apply rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow dark:border-slate-700 dark:bg-slate-900;
     }
 
     .ui-card-hover {
-        @apply hover:shadow-sm transition-shadow;
+        @apply transition-[box-shadow,border-color] duration-200 hover:shadow-md dark:hover:border-slate-500;
     }
 
     .ui-card-hover-md {
-        @apply hover:shadow-md transition-shadow;
+        @apply transition-[box-shadow,border-color] duration-200 hover:shadow-lg dark:hover:border-slate-500;
     }
 
     .ui-btn-primary {
@@ -55,6 +55,18 @@
 
     .ui-btn-ghost {
         @apply inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800;
+    }
+
+    /* Select with proper arrow spacing */
+    .ui-select {
+        @apply appearance-none bg-no-repeat pr-10;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.75rem center;
+        background-size: 1.25rem 1.25rem;
+    }
+
+    .dark .ui-select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
     }
 }
 

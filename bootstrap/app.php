@@ -3,6 +3,7 @@
 use App\Http\Middleware\CheckSubscription;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\EnsureCreator;
+use App\Http\Middleware\EnsureUserIsActive;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,6 +19,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'creator' => EnsureCreator::class,
             'subscription' => CheckSubscription::class,
             'admin' => EnsureAdmin::class,
+            'active' => EnsureUserIsActive::class,
+        ]);
+
+        $middleware->web(append: [
+            EnsureUserIsActive::class,
         ]);
 
         $middleware->validateCsrfTokens(except: [

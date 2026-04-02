@@ -107,7 +107,7 @@
                 @if($posts->count() > 0)
                     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($posts as $post)
-                            <article class="group ui-card-hover bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-5">
+                            <article class="group ui-card-hover bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 dark:hover:border-slate-600 p-5">
                                 <div class="relative mb-4 h-36 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800">
                                     @if($post->cover_image)
                                         <img src="{{ Str::startsWith($post->cover_image, ['http://', 'https://']) ? $post->cover_image : asset('storage/'.$post->cover_image) }}" alt="" class="w-full h-full object-cover">

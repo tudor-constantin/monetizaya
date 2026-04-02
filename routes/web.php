@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthStatusController;
 use App\Http\Controllers\CreatorSubscriptionController;
 use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Middleware\EnsureUserIsActive;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -24,6 +26,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/auth/status', AuthStatusController::class)
+        ->name('auth.status')
+        ->withoutMiddleware(EnsureUserIsActive::class);
+
     Volt::route('dashboard', 'pages.dashboard')->name('dashboard');
     Volt::route('profile', 'pages.profile')->name('profile');
 

@@ -88,6 +88,8 @@ MonetizaYa fills this gap with:
 ### Admin panel
 
 - User and creator management: activation, suspension, and deletion.
+- Mandatory deactivation reason captured by admin and shown to affected users during login.
+- Session enforcement for inactive users with automatic sign-out and toast feedback.
 - Global platform commission configuration.
 - Transaction, dispute, and refund overview.
 - Reported content review.
@@ -321,7 +323,7 @@ monetizaya/
 │   ├── Events/             # Domain events (SubscriptionCreated, ContentPublished...)
 │   ├── Http/
 │   │   ├── Controllers/    # Thin controllers
-│   │   ├── Middleware/     # Custom middleware (CheckSubscription, EnsureCreator, EnsureAdmin)
+│   │   ├── Middleware/     # Custom middleware (CheckSubscription, EnsureCreator, EnsureAdmin, EnsureUserIsActive)
 │   │   └── ...
 │   ├── Jobs/               # Async jobs (SendWelcomeEmail, ProcessDownload...)
 │   ├── Listeners/          # Event listeners
@@ -387,6 +389,9 @@ monetizaya/
 - [x] Clean post URLs (slug-based, no random suffix)
 - [x] Authorization policies for premium content
 - [x] Role middleware (creator, admin)
+- [x] Inactive-account guard middleware with login/session enforcement
+- [x] Admin deactivation modal flow with mandatory reason
+- [x] Cross-navigation toast persistence for auth flows
 - [x] Business services (SubscriptionService, RevenueService)
 - [x] Stripe webhook handler for payment events
 - [x] Models and migrations (Post, Resource, Course, Module, Lesson, Transaction)

@@ -18,6 +18,82 @@ function applyDarkMode() {
 applyDarkMode();
 document.addEventListener('livewire:navigated', applyDarkMode);
 
+let authStatusInterval = null;
+
+function startAuthStatusPolling() {
+    const statusMeta = document.querySelector('meta[name="auth-status-url"]');
+
+    if (!statusMeta) {
+        if (authStatusInterval) {
+            clearInterval(authStatusInterval);
+            authStatusInterval = null;
+        }
+
+        return;
+    }
+
+    const statusUrl = statusMeta.content;
+
+    const checkStatus = async () => {
+        try {
+            const response = await fetch(statusUrl, {
+                method: 'GET',
+                credentials: 'same-origin',
+                headers: {
+                    Accept: 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            });
+
+            if (response.status === 401) {
+                if (authStatusInterval) {
+                    clearInterval(authStatusInterval);
+                    authStatusInterval = null;
+                }
+
+                return;
+            }
+
+            if (!response.ok && response.status !== 423) {
+                return;
+            }
+
+            const contentType = response.headers.get('content-type') || '';
+            if (!contentType.includes('application/json')) {
+                return;
+            }
+
+            const data = await response.json();
+
+            if (data?.active === false) {
+                if (data.toast?.message) {
+                    sessionStorage.setItem('__toastNext', JSON.stringify(data.toast));
+                    window.dispatchEvent(new CustomEvent('toast', { detail: data.toast }));
+                }
+
+                if (authStatusInterval) {
+                    clearInterval(authStatusInterval);
+                    authStatusInterval = null;
+                }
+
+                window.location.href = data.redirect || '/login';
+            }
+        } catch (e) {
+            // Ignore transient network failures.
+        }
+    };
+
+    if (authStatusInterval) {
+        return;
+    }
+
+    checkStatus();
+    authStatusInterval = setInterval(checkStatus, 5000);
+}
+
+startAuthStatusPolling();
+document.addEventListener('livewire:navigated', startAuthStatusPolling);
+
 // Toast notification handler
 window.toastHandler = function() {
     return {
@@ -26,6 +102,13 @@ window.toastHandler = function() {
         timeouts: {},
 
         init() {
+            this.checkFlashToast();
+            this.checkStoredToast();
+            document.addEventListener('livewire:navigated', () => this.checkFlashToast());
+            document.addEventListener('livewire:navigated', () => this.checkStoredToast());
+        },
+
+        checkFlashToast() {
             const flash = document.getElementById('__toastFlash');
             if (flash && flash.textContent) {
                 try {
@@ -39,7 +122,33 @@ window.toastHandler = function() {
             }
         },
 
-        addToast({ type = 'default', title = '', message, duration = 5000 }) {
+        checkStoredToast() {
+            const stored = sessionStorage.getItem('__toastNext');
+
+            if (!stored) {
+                return;
+            }
+
+            try {
+                const data = JSON.parse(stored);
+
+                if (data && data.message) {
+                    this.addToast(data);
+                }
+            } catch (e) {}
+
+            sessionStorage.removeItem('__toastNext');
+        },
+
+        addToast({ type = 'default', title = '', message, duration = 5000, persist = false }) {
+            if (!message) {
+                return;
+            }
+
+            if (persist) {
+                sessionStorage.setItem('__toastNext', JSON.stringify({ type, title, message, duration }));
+            }
+
             const id = this.nextId++;
             const toast = {
                 id,

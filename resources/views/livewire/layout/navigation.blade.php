@@ -16,7 +16,11 @@ new class extends Component
 
     public function logout(Logout $logout): void
     {
-        $logout();
+        $logout([
+            'type' => 'success',
+            'message' => __('ui.logged_out_successfully'),
+        ]);
+
         $this->redirect('/', navigate: true);
     }
 

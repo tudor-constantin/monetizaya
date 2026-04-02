@@ -17,7 +17,9 @@ new #[Layout('layouts.guest')] class extends Component
             $this->form->authenticate();
             Session::regenerate();
         } catch (ValidationException $e) {
-            $this->dispatch('toast', type: 'error', message: __('auth.failed'));
+            $message = collect($e->errors())->flatten()->first() ?? __('auth.failed');
+
+            $this->dispatch('toast', type: 'error', message: $message);
 
             throw $e;
         }
