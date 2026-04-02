@@ -56,7 +56,7 @@ new #[Layout('layouts.app')] class extends Component
                 <div class="pointer-events-none absolute -bottom-20 -left-8 h-52 w-52 rounded-full bg-blue-200/50 blur-3xl dark:bg-blue-500/20"></div>
 
                 <div class="relative">
-                    <p class="text-xs font-semibold tracking-[0.2em] uppercase text-blue-700 dark:text-blue-300">MonetizaYa</p>
+                    <p class="text-xs font-semibold tracking-[0.2em] uppercase text-blue-700 dark:text-blue-300">{{ __('ui.app_name') }}</p>
                     <h3 class="mt-3 text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{{ __('ui.dashboard_focus_title') }}</h3>
                     <p class="mt-2 max-w-2xl text-sm sm:text-base text-slate-600 dark:text-slate-300">{{ __('ui.dashboard_focus_desc') }}</p>
 
@@ -73,20 +73,20 @@ new #[Layout('layouts.app')] class extends Component
 
             <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                 <a href="{{ route('profile') }}" class="group ui-card-hover rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5" wire:navigate>
-                    <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Account</p>
+                    <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{{ __('ui.account') }}</p>
                     <h4 class="mt-2 text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300">{{ __('ui.profile_settings') }}</h4>
                     <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.update_account_details') }}</p>
                 </a>
 
                 <a href="{{ route('creators.index') }}" class="group ui-card-hover rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5" wire:navigate>
-                    <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Explore</p>
+                    <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{{ __('ui.explore') }}</p>
                     <h4 class="mt-2 text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300">{{ __('ui.discover_creators') }}</h4>
                     <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.explore_creator_profiles') }}</p>
                 </a>
 
                 @if(auth()->user()->hasRole('creator') || auth()->user()->hasRole('admin'))
                     <a href="{{ route('creator.dashboard') }}" class="group ui-card-hover rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5" wire:navigate>
-                        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Studio</p>
+                        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{{ __('ui.studio') }}</p>
                         <h4 class="mt-2 text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300">{{ __('ui.creator_studio') }}</h4>
                         <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.manage_content_earnings') }}</p>
                     </a>
@@ -94,7 +94,7 @@ new #[Layout('layouts.app')] class extends Component
 
                 @if(auth()->user()->hasRole('admin'))
                     <a href="{{ route('admin.dashboard') }}" class="group ui-card-hover rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900 p-5" wire:navigate>
-                        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Admin</p>
+                        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{{ __('ui.admin') }}</p>
                         <h4 class="mt-2 text-lg font-bold text-slate-900 dark:text-white group-hover:text-rose-700 dark:group-hover:text-rose-300">{{ __('ui.admin_panel') }}</h4>
                         <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.manage_platform') }}</p>
                     </a>

@@ -21,13 +21,13 @@ final class StripeWebhookController extends Controller
         $endpointSecret = (string) config('services.stripe.webhook_secret');
 
         if ($endpointSecret === '') {
-            abort(500, 'Stripe webhook secret is not configured');
+            abort(500, __('ui.stripe_webhook_secret_missing'));
         }
 
         try {
             $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
         } catch (SignatureVerificationException|UnexpectedValueException $e) {
-            abort(400, 'Invalid webhook signature');
+            abort(400, __('ui.invalid_webhook_signature'));
         }
 
         match ($event->type) {
@@ -37,6 +37,6 @@ final class StripeWebhookController extends Controller
             default => Log::info('Unhandled Stripe event', ['type' => $event->type]),
         };
 
-        return response('Webhook handled', 200);
+        return response(__('ui.webhook_handled'), 200);
     }
 }

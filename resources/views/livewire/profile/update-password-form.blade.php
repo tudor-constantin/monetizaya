@@ -30,7 +30,7 @@ new class extends Component
 
         Auth::user()->update(['password' => Hash::make($validated['password'])]);
         $this->reset('current_password', 'password', 'password_confirmation');
-        $this->dispatch('toast', type: 'success', message: 'Password updated successfully.');
+        $this->dispatch('toast', type: 'success', message: __('ui.password_updated_successfully'));
     }
 }; ?>
 
@@ -59,7 +59,7 @@ new class extends Component
         <div class="flex items-center gap-4 pt-2">
             <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" wire:loading.attr="disabled">
                 <span wire:loading.remove>{{ __('ui.save') }}</span>
-                <span wire:loading>Saving...</span>
+                <span wire:loading>{{ __('ui.saving') }}</span>
             </button>
         </div>
     </form>

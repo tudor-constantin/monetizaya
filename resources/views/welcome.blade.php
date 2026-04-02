@@ -57,7 +57,7 @@
                                 <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.automated_subscriptions') }}</p>
                             </div>
                             <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/70">
-                                <p class="text-2xl font-extrabold text-slate-900 dark:text-white">Stripe</p>
+                                <p class="text-2xl font-extrabold text-slate-900 dark:text-white">{{ __('ui.stripe_label') }}</p>
                                 <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.secure_checkout') }}</p>
                             </div>
                             <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/70">
@@ -65,7 +65,7 @@
                                 <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.content_ownership') }}</p>
                             </div>
                             <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/70">
-                                <p class="text-2xl font-extrabold text-slate-900 dark:text-white">Global</p>
+                                <p class="text-2xl font-extrabold text-slate-900 dark:text-white">{{ __('ui.global_label') }}</p>
                                 <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ __('ui.audience_ready') }}</p>
                             </div>
                         </div>

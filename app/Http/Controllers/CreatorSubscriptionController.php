@@ -22,11 +22,11 @@ final class CreatorSubscriptionController extends Controller
         }
 
         if ($subscriber->id === $user->id) {
-            throw new HttpException(403, 'You cannot subscribe to your own profile.');
+            throw new HttpException(403, __('ui.cannot_subscribe_own_profile'));
         }
 
         if (! $user->hasRole('creator') || ! $user->is_active) {
-            throw new HttpException(404, 'Creator not available.');
+            throw new HttpException(404, __('ui.creator_not_available'));
         }
 
         if ($subscriptionService->hasActiveSubscription($subscriber, $user)) {

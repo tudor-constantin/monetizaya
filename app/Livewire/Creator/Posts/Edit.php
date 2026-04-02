@@ -90,7 +90,7 @@ class Edit extends Component
 
         session()->flash('toast', [
             'type' => 'success',
-            'message' => 'Post updated successfully.',
+            'message' => __('ui.post_updated_successfully'),
         ]);
 
         $this->redirect(route('creator.posts.index'), navigate: true);

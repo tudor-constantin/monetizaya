@@ -58,7 +58,7 @@
                     'profile' => __('ui.profile'),
                     'creator' => __('ui.creator_studio'),
                     'posts' => __('ui.posts'),
-                    'create' => 'Create',
+                    'create' => __('ui.create'),
                     'edit' => __('ui.edit'),
                     'resources' => __('ui.resources'),
                     'courses' => __('ui.courses'),
@@ -110,7 +110,7 @@
 
         <header class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
             <div class="ui-shell py-4">
-                <nav aria-label="Breadcrumb">
+                <nav aria-label="{{ __('ui.breadcrumb') }}">
                     <ol class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                         @foreach ($breadcrumbs as $crumb)
                             <li class="inline-flex items-center gap-2">

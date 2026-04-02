@@ -37,7 +37,7 @@ new #[Layout('layouts.guest')] class extends Component
     <div class="flex items-center justify-between">
         <button wire:click="sendVerification" class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" wire:loading.attr="disabled">
             <span wire:loading.remove>{{ __('ui.resend_verification') }}</span>
-            <span wire:loading>Sending...</span>
+            <span wire:loading>{{ __('ui.sending') }}</span>
         </button>
 
         <button wire:click="logout" type="button" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white underline">

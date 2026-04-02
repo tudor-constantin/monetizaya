@@ -48,7 +48,7 @@
                                 @if(!empty($social))
                                     <div class="mt-3 flex flex-wrap gap-2 lg:justify-end">
                                         @foreach($social as $label => $url)
-                                            <a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="{{ ucfirst($label) }}" aria-label="{{ ucfirst($label) }}">
+                                            <a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="{{ __('ui.social_'.$label) !== 'ui.social_'.$label ? __('ui.social_'.$label) : ucfirst($label) }}" aria-label="{{ __('ui.social_'.$label) !== 'ui.social_'.$label ? __('ui.social_'.$label) : ucfirst($label) }}">
                                                 @if($label === 'twitter')
                                                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.64 7.59L22.2 22h-6.13l-4.8-6.28L5.8 22H3l7.1-8.12L2 2h6.2l4.33 5.7L18.244 2z"/></svg>
                                                 @elseif($label === 'instagram')
@@ -72,7 +72,7 @@
                                 @if(!empty($social))
                                     <div class="mt-3 flex flex-wrap gap-2 lg:justify-end">
                                         @foreach($social as $label => $url)
-                                            <a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="{{ ucfirst($label) }}" aria-label="{{ ucfirst($label) }}">
+                                            <a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="{{ __('ui.social_'.$label) !== 'ui.social_'.$label ? __('ui.social_'.$label) : ucfirst($label) }}" aria-label="{{ __('ui.social_'.$label) !== 'ui.social_'.$label ? __('ui.social_'.$label) : ucfirst($label) }}">
                                                 @if($label === 'twitter')
                                                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.64 7.59L22.2 22h-6.13l-4.8-6.28L5.8 22H3l7.1-8.12L2 2h6.2l4.33 5.7L18.244 2z"/></svg>
                                                 @elseif($label === 'instagram')

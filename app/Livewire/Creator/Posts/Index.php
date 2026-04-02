@@ -30,7 +30,7 @@ class Index extends Component
 
         session()->flash('toast', [
             'type' => 'success',
-            'message' => 'Post deleted successfully.',
+            'message' => __('ui.post_deleted_successfully'),
         ]);
 
         $this->confirmingPostDeletion = null;

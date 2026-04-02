@@ -28,7 +28,7 @@ new #[Layout('layouts.guest')] class extends Component
         }
 
         session(['auth.password_confirmed_at' => time()]);
-        $this->dispatch('toast', type: 'success', message: 'Password confirmed.');
+        $this->dispatch('toast', type: 'success', message: __('ui.password_confirmed'));
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
 }; ?>
@@ -49,7 +49,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         <button type="submit" class="mt-6 w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" wire:loading.attr="disabled">
             <span wire:loading.remove>{{ __('ui.confirm') }}</span>
-            <span wire:loading>Confirming...</span>
+            <span wire:loading>{{ __('ui.confirming') }}</span>
         </button>
     </form>
 </div>

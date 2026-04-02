@@ -67,7 +67,7 @@ class Create extends Component
 
         session()->flash('toast', [
             'type' => 'success',
-            'message' => 'Post created successfully.',
+            'message' => __('ui.post_created_successfully'),
         ]);
 
         $this->redirect(route('creator.posts.index'), navigate: true);

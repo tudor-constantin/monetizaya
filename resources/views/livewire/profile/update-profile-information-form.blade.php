@@ -68,7 +68,7 @@ new class extends Component
 
         $this->avatarPreview = $user->avatar_url;
         $this->avatarFile = null;
-        $this->dispatch('toast', type: 'success', message: 'Profile updated successfully.');
+        $this->dispatch('toast', type: 'success', message: __('ui.profile_updated_successfully'));
         $this->dispatch('profile-updated');
     }
 
@@ -135,7 +135,7 @@ new class extends Component
         <div class="flex items-center gap-4 pt-2">
             <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" wire:loading.attr="disabled">
                 <span wire:loading.remove>{{ __('ui.save') }}</span>
-                <span wire:loading>Saving...</span>
+                <span wire:loading>{{ __('ui.saving') }}</span>
             </button>
         </div>
     </form>

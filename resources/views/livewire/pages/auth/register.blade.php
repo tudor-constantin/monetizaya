@@ -43,7 +43,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         session()->flash('toast', [
             'type' => 'success',
-            'message' => 'Account created successfully.',
+            'message' => __('ui.account_created_successfully'),
         ]);
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
@@ -81,7 +81,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         <button type="submit" class="mt-6 w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" wire:loading.attr="disabled">
             <span wire:loading.remove>{{ __('ui.create_account') }}</span>
-            <span wire:loading>Creating account...</span>
+            <span wire:loading>{{ __('ui.creating_account') }}</span>
         </button>
 
         <p class="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">

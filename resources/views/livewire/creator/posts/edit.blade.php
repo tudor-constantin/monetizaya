@@ -59,7 +59,7 @@
                 <a href="{{ route('creator.posts.index') }}" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors" wire:navigate>{{ __('ui.cancel') }}</a>
                 <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" wire:loading.attr="disabled">
                     <span wire:loading.remove>{{ __('ui.save_changes') }}</span>
-                    <span wire:loading>Saving...</span>
+                    <span wire:loading>{{ __('ui.saving') }}</span>
                 </button>
             </div>
         </form>
