@@ -125,7 +125,7 @@ class Edit extends Component
         $slug = $base;
         $counter = 2;
 
-        while (Post::query()->where('id', '!=', $currentPostId)->where('slug', $slug)->exists()) {
+        while (Post::withTrashed()->where('id', '!=', $currentPostId)->where('slug', $slug)->exists()) {
             $slug = $base.'-'.$counter;
             $counter++;
         }

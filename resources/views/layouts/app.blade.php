@@ -37,6 +37,10 @@
             }
 
             $breadcrumbs = collect($segments)->map(function (string $segment, int $index) use ($segments, $resolvedPost, $postShowUrl, $isPublicPostRoute, $currentUser) {
+                if ($isPublicPostRoute && $segment === 'posts') {
+                    return null;
+                }
+
                 $isPostIdentifier = ($resolvedPost instanceof \App\Models\Post)
                     && ((string) $resolvedPost->slug === $segment)
                     && ($segments[$index - 1] ?? null) === 'posts'
@@ -101,7 +105,7 @@
                 }
 
                 return ['label' => $label, 'url' => $url];
-            });
+            })->filter()->values();
         @endphp
 
         <header class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">

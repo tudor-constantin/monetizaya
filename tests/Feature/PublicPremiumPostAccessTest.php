@@ -38,6 +38,7 @@ class PublicPremiumPostAccessTest extends TestCase
         $response->assertSee(__('ui.premium_article_locked_title'));
         $response->assertSee(__('ui.subscribe'));
         $response->assertDontSee($body);
+        $response->assertDontSee('<span class="font-medium text-gray-900 dark:text-white">Posts</span>', false);
         $response->assertDontSee('href="'.url('/creators/'.$creator->slug.'/posts').'"', false);
     }
 }

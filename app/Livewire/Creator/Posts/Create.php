@@ -89,7 +89,7 @@ class Create extends Component
         $slug = $base;
         $counter = 2;
 
-        while (Post::query()->where('slug', $slug)->exists()) {
+        while (Post::withTrashed()->where('slug', $slug)->exists()) {
             $slug = $base.'-'.$counter;
             $counter++;
         }
