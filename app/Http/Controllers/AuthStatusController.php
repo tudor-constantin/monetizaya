@@ -19,7 +19,7 @@ class AuthStatusController extends Controller
             return response()->json([
                 'active' => false,
                 'redirect' => route('login'),
-            ], 401);
+            ]);
         }
 
         if (! Schema::hasColumn('users', 'is_active')) {

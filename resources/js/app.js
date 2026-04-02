@@ -1,12 +1,13 @@
 import './bootstrap';
 
-// Global dark mode toggle function
-window.toggleDarkMode = function() {
+const TOAST_STORAGE_KEY = '__toastNext';
+const AUTH_STATUS_INTERVAL_MS = 5000;
+
+window.toggleDarkMode = function () {
     const isDark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('dark', isDark);
 };
 
-// Initialize dark mode on page load AND on every Livewire navigation
 function applyDarkMode() {
     if (localStorage.getItem('dark') === 'true') {
         document.documentElement.classList.add('dark');
@@ -20,81 +21,78 @@ document.addEventListener('livewire:navigated', applyDarkMode);
 
 let authStatusInterval = null;
 
-function startAuthStatusPolling() {
-    const statusMeta = document.querySelector('meta[name="auth-status-url"]');
-
-    if (!statusMeta) {
-        if (authStatusInterval) {
-            clearInterval(authStatusInterval);
-            authStatusInterval = null;
-        }
-
+function clearAuthStatusPolling() {
+    if (!authStatusInterval) {
         return;
     }
 
-    const statusUrl = statusMeta.content;
+    clearInterval(authStatusInterval);
+    authStatusInterval = null;
+}
 
-    const checkStatus = async () => {
-        try {
-            const response = await fetch(statusUrl, {
-                method: 'GET',
-                credentials: 'same-origin',
-                headers: {
-                    Accept: 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                },
-            });
+function getAuthStatusUrl() {
+    return document.body?.dataset?.authStatusUrl ?? '';
+}
 
-            if (response.status === 401) {
-                if (authStatusInterval) {
-                    clearInterval(authStatusInterval);
-                    authStatusInterval = null;
-                }
+async function checkAuthStatus(statusUrl) {
+    try {
+        const response = await fetch(statusUrl, {
+            method: 'GET',
+            credentials: 'same-origin',
+            headers: {
+                Accept: 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        });
 
-                return;
-            }
-
-            if (!response.ok && response.status !== 423) {
-                return;
-            }
-
-            const contentType = response.headers.get('content-type') || '';
-            if (!contentType.includes('application/json')) {
-                return;
-            }
-
-            const data = await response.json();
-
-            if (data?.active === false) {
-                if (data.toast?.message) {
-                    sessionStorage.setItem('__toastNext', JSON.stringify(data.toast));
-                    window.dispatchEvent(new CustomEvent('toast', { detail: data.toast }));
-                }
-
-                if (authStatusInterval) {
-                    clearInterval(authStatusInterval);
-                    authStatusInterval = null;
-                }
-
-                window.location.href = data.redirect || '/login';
-            }
-        } catch (e) {
-            // Ignore transient network failures.
+        if (!response.ok && response.status !== 423) {
+            return;
         }
-    };
+
+        const contentType = response.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+            return;
+        }
+
+        const data = await response.json();
+
+        if (data?.active === false) {
+            if (data.toast?.message) {
+                sessionStorage.setItem(TOAST_STORAGE_KEY, JSON.stringify(data.toast));
+                window.dispatchEvent(new CustomEvent('toast', { detail: data.toast }));
+            }
+
+            clearAuthStatusPolling();
+
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            }
+        }
+    } catch {
+        // Ignore transient network failures.
+    }
+}
+
+function startAuthStatusPolling() {
+    const statusUrl = getAuthStatusUrl();
+    if (!statusUrl) {
+        clearAuthStatusPolling();
+        return;
+    }
 
     if (authStatusInterval) {
         return;
     }
 
-    checkStatus();
-    authStatusInterval = setInterval(checkStatus, 5000);
+    void checkAuthStatus(statusUrl);
+    authStatusInterval = setInterval(() => {
+        void checkAuthStatus(statusUrl);
+    }, AUTH_STATUS_INTERVAL_MS);
 }
 
 startAuthStatusPolling();
 document.addEventListener('livewire:navigated', startAuthStatusPolling);
 
-// Toast notification handler
 window.toastHandler = function() {
     return {
         toasts: [],
@@ -123,7 +121,7 @@ window.toastHandler = function() {
         },
 
         checkStoredToast() {
-            const stored = sessionStorage.getItem('__toastNext');
+            const stored = sessionStorage.getItem(TOAST_STORAGE_KEY);
 
             if (!stored) {
                 return;
@@ -137,7 +135,7 @@ window.toastHandler = function() {
                 }
             } catch (e) {}
 
-            sessionStorage.removeItem('__toastNext');
+            sessionStorage.removeItem(TOAST_STORAGE_KEY);
         },
 
         addToast({ type = 'default', title = '', message, duration = 5000, persist = false }) {
@@ -146,7 +144,7 @@ window.toastHandler = function() {
             }
 
             if (persist) {
-                sessionStorage.setItem('__toastNext', JSON.stringify({ type, title, message, duration }));
+                sessionStorage.setItem(TOAST_STORAGE_KEY, JSON.stringify({ type, title, message, duration }));
             }
 
             const id = this.nextId++;

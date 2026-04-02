@@ -4,7 +4,6 @@ use App\Http\Controllers\AuthStatusController;
 use App\Http\Controllers\CreatorSubscriptionController;
 use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\StripeWebhookController;
-use App\Http\Middleware\EnsureUserIsActive;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -15,6 +14,7 @@ Route::get('/creators', [PublicPageController::class, 'creatorsIndex'])
 
 Route::get('/creators/{user:slug}', [PublicPageController::class, 'showCreator'])->name('creators.show');
 Route::get('/creators/{user:slug}/posts/{post:slug}', [PublicPageController::class, 'showPost'])->name('creators.posts.show');
+Route::get('/auth/status', AuthStatusController::class)->name('auth.status');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/creators/{user:slug}/subscribe', [CreatorSubscriptionController::class, 'store'])
@@ -26,10 +26,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/auth/status', AuthStatusController::class)
-        ->name('auth.status')
-        ->withoutMiddleware(EnsureUserIsActive::class);
-
     Volt::route('dashboard', 'pages.dashboard')->name('dashboard');
     Volt::route('profile', 'pages.profile')->name('profile');
 
