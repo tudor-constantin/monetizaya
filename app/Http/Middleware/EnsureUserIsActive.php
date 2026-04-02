@@ -7,7 +7,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Schema;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureUserIsActive
@@ -18,15 +17,14 @@ class EnsureUserIsActive
             return $next($request);
         }
 
-        if (! Schema::hasColumn('users', 'is_active')) {
-            return $next($request);
-        }
-
         $user = Auth::user();
 
         if ($user && ! $user->is_active) {
             $reason = $user->deactivation_reason;
             Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
             session()->flash('toast', [
                 'type' => 'error',

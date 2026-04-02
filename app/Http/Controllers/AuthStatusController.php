@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Schema;
 
 class AuthStatusController extends Controller
 {
@@ -19,12 +18,6 @@ class AuthStatusController extends Controller
             return response()->json([
                 'active' => false,
                 'redirect' => route('login'),
-            ]);
-        }
-
-        if (! Schema::hasColumn('users', 'is_active')) {
-            return response()->json([
-                'active' => true,
             ]);
         }
 

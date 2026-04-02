@@ -347,21 +347,19 @@
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="modal-title">{{ __('ui.change_user_role') }}</h3>
                     </div>
 
-                    @if($selectedUserId)
-                        @php $editUser = \App\Models\User::find($selectedUserId); @endphp
-                        @if($editUser)
+                    @if($selectedUser)
                             <div class="px-6 py-4">
                                 <div class="flex items-center gap-3 mb-5 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                                    @if($editUser->avatar_url)
-                                        <img class="h-10 w-10 rounded-full object-cover" src="{{ $editUser->avatar_url }}" alt="">
+                                    @if($selectedUser->avatar_url)
+                                        <img class="h-10 w-10 rounded-full object-cover" src="{{ $selectedUser->avatar_url }}" alt="">
                                     @else
                                         <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm">
-                                            {{ strtoupper(substr($editUser->name, 0, 1)) }}
+                                            {{ strtoupper(substr($selectedUser->name, 0, 1)) }}
                                         </div>
                                     @endif
                                     <div class="min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ $editUser->name }}</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ $editUser->email }}</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ $selectedUser->name }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ $selectedUser->email }}</p>
                                     </div>
                                 </div>
 
@@ -396,7 +394,6 @@
                                     {{ __('ui.save') }}
                                 </button>
                             </div>
-                        @endif
                     @endif
                 </div>
             </div>
@@ -421,12 +418,10 @@
                         </div>
                     </div>
 
-                    @if($selectedUserId)
-                        @php $deactivateUser = \App\Models\User::find($selectedUserId); @endphp
-                        @if($deactivateUser)
+                    @if($selectedUser)
                             <div class="px-6 py-4">
                                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                    {{ __('ui.deactivate_user_message', ['name' => $deactivateUser->name]) }}
+                                    {{ __('ui.deactivate_user_message', ['name' => $selectedUser->name]) }}
                                 </p>
 
                                 <label for="deactivation-reason" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -460,7 +455,6 @@
                                     {{ __('ui.deactivate') }}
                                 </button>
                             </div>
-                        @endif
                     @endif
                 </div>
             </div>
@@ -660,17 +654,14 @@
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="activate-modal-title">{{ __('ui.activate_user') }}</h3>
                         </div>
                     </div>
-                    @if($selectedUserId)
-                        @php $activateUser = \App\Models\User::find($selectedUserId); @endphp
-                        @if($activateUser)
-                            <div class="px-6 py-4">
-                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('ui.confirm_activate_user', ['name' => $activateUser->name]) }}</p>
-                            </div>
-                            <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
-                                <button wire:click="closeModals" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600">{{ __('ui.cancel') }}</button>
-                                <button wire:click="activateUser" type="button" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700">{{ __('ui.activate') }}</button>
-                            </div>
-                        @endif
+                    @if($selectedUser)
+                        <div class="px-6 py-4">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('ui.confirm_activate_user', ['name' => $selectedUser->name]) }}</p>
+                        </div>
+                        <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
+                            <button wire:click="closeModals" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600">{{ __('ui.cancel') }}</button>
+                            <button wire:click="activateUser" type="button" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700">{{ __('ui.activate') }}</button>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -691,17 +682,14 @@
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="approve-modal-title">{{ __('ui.approve_creator') }}</h3>
                         </div>
                     </div>
-                    @if($selectedUserId)
-                        @php $approveUser = \App\Models\User::find($selectedUserId); @endphp
-                        @if($approveUser)
-                            <div class="px-6 py-4">
-                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('ui.confirm_approve_creator_user', ['name' => $approveUser->name]) }}</p>
-                            </div>
-                            <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
-                                <button wire:click="closeModals" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600">{{ __('ui.cancel') }}</button>
-                                <button wire:click="approveCreator" type="button" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700">{{ __('ui.approve') }}</button>
-                            </div>
-                        @endif
+                    @if($selectedUser)
+                        <div class="px-6 py-4">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('ui.confirm_approve_creator_user', ['name' => $selectedUser->name]) }}</p>
+                        </div>
+                        <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
+                            <button wire:click="closeModals" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600">{{ __('ui.cancel') }}</button>
+                            <button wire:click="approveCreator" type="button" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700">{{ __('ui.approve') }}</button>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -722,17 +710,14 @@
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="reject-modal-title">{{ __('ui.reject_creator') }}</h3>
                         </div>
                     </div>
-                    @if($selectedUserId)
-                        @php $rejectUser = \App\Models\User::find($selectedUserId); @endphp
-                        @if($rejectUser)
-                            <div class="px-6 py-4">
-                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('ui.confirm_reject_creator_user', ['name' => $rejectUser->name]) }}</p>
-                            </div>
-                            <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
-                                <button wire:click="closeModals" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600">{{ __('ui.cancel') }}</button>
-                                <button wire:click="rejectCreator" type="button" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">{{ __('ui.reject') }}</button>
-                            </div>
-                        @endif
+                    @if($selectedUser)
+                        <div class="px-6 py-4">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('ui.confirm_reject_creator_user', ['name' => $selectedUser->name]) }}</p>
+                        </div>
+                        <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
+                            <button wire:click="closeModals" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600">{{ __('ui.cancel') }}</button>
+                            <button wire:click="rejectCreator" type="button" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">{{ __('ui.reject') }}</button>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -753,17 +738,14 @@
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="delete-modal-title">{{ __('ui.delete_user') }}</h3>
                         </div>
                     </div>
-                    @if($selectedUserId)
-                        @php $deleteUser = \App\Models\User::find($selectedUserId); @endphp
-                        @if($deleteUser)
-                            <div class="px-6 py-4">
-                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('ui.confirm_delete_user_message', ['name' => $deleteUser->name]) }}</p>
-                            </div>
-                            <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
-                                <button wire:click="closeModals" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600">{{ __('ui.cancel') }}</button>
-                                <button wire:click="deleteUser" type="button" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">{{ __('ui.delete') }}</button>
-                            </div>
-                        @endif
+                    @if($selectedUser)
+                        <div class="px-6 py-4">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('ui.confirm_delete_user_message', ['name' => $selectedUser->name]) }}</p>
+                        </div>
+                        <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
+                            <button wire:click="closeModals" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600">{{ __('ui.cancel') }}</button>
+                            <button wire:click="deleteUser" type="button" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">{{ __('ui.delete') }}</button>
+                        </div>
                     @endif
                 </div>
             </div>

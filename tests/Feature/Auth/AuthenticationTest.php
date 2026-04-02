@@ -81,6 +81,8 @@ class AuthenticationTest extends TestCase
             ->assertHasNoErrors()
             ->assertRedirect('/');
 
+        $this->assertSame(__('ui.logged_out_successfully'), session('toast.message'));
+
         $this->assertGuest();
     }
 }

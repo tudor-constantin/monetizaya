@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Schema;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
@@ -19,12 +18,6 @@ new #[Layout('layouts.app')] class extends Component
 
         if ($user->hasRole('creator') || $user->hasRole('admin')) {
             $this->redirectRoute('creator.dashboard', navigate: true);
-
-            return;
-        }
-
-        if (! Schema::hasColumn('users', 'creator_requested_at')) {
-            $this->dispatch('toast', type: 'error', message: __('ui.system_update_required'));
 
             return;
         }

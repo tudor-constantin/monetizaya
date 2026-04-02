@@ -94,5 +94,5 @@
 </div>
 
 @if(session('toast'))
-    <script id="__toastFlash" type="application/json">{!! json_encode(session('toast')) !!}</script>
+    <script id="__toastFlash" type="application/json">{!! json_encode(session('toast'), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
 @endif
