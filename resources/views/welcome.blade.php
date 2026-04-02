@@ -14,8 +14,6 @@
         {{ __('ui.skip_to_main_content') }}
     </a>
 
-    <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[36rem] bg-[radial-gradient(circle_at_top_right,rgba(11,87,208,0.16),transparent_56%),radial-gradient(circle_at_top_left,rgba(59,130,246,0.12),transparent_52%)] dark:bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.14),transparent_56%),radial-gradient(circle_at_top_left,rgba(37,99,235,0.10),transparent_52%)]"></div>
-
     <header class="sticky top-0 z-50 border-b border-slate-200/90 bg-white/90 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/90">
         <nav class="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="{{ __('ui.main_navigation') }}">
             <a href="{{ route('home') }}" class="inline-flex items-center gap-2" wire:navigate>
@@ -50,7 +48,8 @@
     </header>
 
     <main id="contenido">
-        <section class="pb-16 pt-14 sm:pt-16 lg:pb-24 lg:pt-20" aria-labelledby="hero-title">
+        <section class="relative overflow-hidden border-b border-slate-200 pb-16 pt-14 sm:pt-16 lg:pb-24 lg:pt-20 dark:border-slate-800" aria-labelledby="hero-title">
+            <div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(11,87,208,0.18),transparent_56%),radial-gradient(circle_at_top_left,rgba(59,130,246,0.14),transparent_52%),linear-gradient(to_bottom,#f8fbff_0%,#f8fafc_65%)] dark:bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.16),transparent_56%),radial-gradient(circle_at_top_left,rgba(37,99,235,0.12),transparent_52%),linear-gradient(to_bottom,#020617_0%,#020617_100%)]"></div>
             <div class="mx-auto grid w-full max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-8">
                 <div class="lg:col-span-7">
                     <span class="mb-5 inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-800 dark:border-blue-900/80 dark:bg-blue-900/30 dark:text-blue-200">
@@ -166,7 +165,66 @@
             </div>
         </section>
 
-        <section class="py-16" aria-labelledby="creators-title">
+        <section class="py-16 bg-slate-100/80 dark:bg-slate-900/40" aria-labelledby="cta-title">
+            <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10 dark:border-slate-800 dark:bg-slate-900">
+                    <div class="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600"></div>
+                    <div class="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-blue-100/70 blur-3xl dark:bg-blue-900/20"></div>
+
+                    <div class="relative grid gap-8 lg:grid-cols-12 lg:items-center">
+                        <div class="lg:col-span-7">
+                            <span class="inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-800 dark:border-blue-900/70 dark:bg-blue-900/30 dark:text-blue-200">
+                                {{ __('ui.monetization_platform') }}
+                            </span>
+                            <h2 id="cta-title" class="mt-5 max-w-3xl text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">{{ __('ui.ready_to_monetize') }}</h2>
+                            <p class="mt-4 max-w-2xl text-lg leading-relaxed text-slate-700 dark:text-slate-300">{{ __('ui.join_today') }}</p>
+
+                            <div class="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+                                @auth
+                                    <a href="{{ url('/dashboard') }}" class="inline-flex min-h-11 items-center rounded-lg bg-blue-600 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-blue-700" wire:navigate>
+                                        {{ __('ui.go_to_dashboard') }}
+                                    </a>
+                                @else
+                                    <a href="{{ route('register') }}" class="inline-flex min-h-11 items-center rounded-lg bg-blue-600 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-blue-700" wire:navigate>
+                                        {{ __('ui.create_free_account') }}
+                                    </a>
+                                @endauth
+
+                                <a href="{{ route('creators.index') }}" class="inline-flex min-h-11 items-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-base font-semibold text-slate-800 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800" wire:navigate>
+                                    {{ __('ui.discover_creators') }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <aside class="lg:col-span-5" aria-label="{{ __('ui.platform_highlights') }}">
+                            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-800/60">
+                                <h3 class="text-base font-semibold text-slate-900 dark:text-white">{{ __('ui.everything_you_need') }}</h3>
+                                <ul class="mt-4 space-y-3 text-sm text-slate-700 dark:text-slate-300">
+                                    <li class="flex items-center gap-2">
+                                        <span class="h-2 w-2 rounded-full bg-blue-600" aria-hidden="true"></span>
+                                        {{ __('ui.premium_posts') }}
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="h-2 w-2 rounded-full bg-blue-600" aria-hidden="true"></span>
+                                        {{ __('ui.downloadable_resources') }}
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="h-2 w-2 rounded-full bg-blue-600" aria-hidden="true"></span>
+                                        {{ __('ui.recurring_payments') }}
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="h-2 w-2 rounded-full bg-blue-600" aria-hidden="true"></span>
+                                        {{ __('ui.analytics_feature') }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white dark:bg-slate-950" aria-labelledby="creators-title">
             <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                     <div>
@@ -226,26 +284,6 @@
                         <p class="mt-2 text-slate-600 dark:text-slate-300">{{ __('ui.check_back_soon') }}</p>
                     </div>
                 @endif
-            </div>
-        </section>
-
-        <section class="pb-20" aria-labelledby="cta-title">
-            <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="overflow-hidden rounded-3xl border border-blue-200 bg-blue-600 px-6 py-12 text-white shadow-sm sm:px-10 dark:border-blue-900">
-                    <h2 id="cta-title" class="max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl">{{ __('ui.ready_to_monetize') }}</h2>
-                    <p class="mt-4 max-w-2xl text-lg text-blue-100">{{ __('ui.join_today') }}</p>
-                    <div class="mt-8">
-                        @auth
-                            <a href="{{ url('/dashboard') }}" class="inline-flex min-h-11 items-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-blue-700 transition-colors hover:bg-blue-50" wire:navigate>
-                                {{ __('ui.go_to_dashboard') }}
-                            </a>
-                        @else
-                            <a href="{{ route('register') }}" class="inline-flex min-h-11 items-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-blue-700 transition-colors hover:bg-blue-50" wire:navigate>
-                                {{ __('ui.create_free_account') }}
-                            </a>
-                        @endauth
-                    </div>
-                </div>
             </div>
         </section>
     </main>
