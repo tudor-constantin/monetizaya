@@ -276,5 +276,15 @@ return [
     'total_security_desc' => 'Protected content, secure payments with Stripe, and PCI compliance.',
     'ready_to_monetize' => 'Ready to monetize your content?',
     'join_today' => 'Join today and start generating recurring revenue with your audience.',
+    'skip_to_main_content' => 'Skip to main content',
+    'main_navigation' => 'Main navigation',
+    'platform_highlights' => 'Platform highlights',
+    'creator_pulse' => 'Creator pulse',
+    'automated_subscriptions' => 'Automated subscriptions',
+    'secure_checkout' => 'Secure checkout',
+    'content_ownership' => 'Content ownership',
+    'audience_ready' => 'Audience-ready',
+    'publish_once_sell_repeatedly' => 'Publish once, sell repeatedly, and build a recurring business around your expertise.',
+    'see_all_creators' => 'See all creators',
 
 ];
