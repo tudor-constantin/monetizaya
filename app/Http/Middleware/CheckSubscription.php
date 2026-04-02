@@ -26,7 +26,7 @@ class CheckSubscription
 
         $creator = $request->route($param);
 
-        if ($creator instanceof User && $creator->is_creator) {
+        if ($creator instanceof User && ($creator->hasRole('creator') || $creator->hasRole('admin'))) {
             if (! $this->subscriptionService->hasActiveSubscription($user, $creator)) {
                 abort(403, 'Active subscription required.');
             }

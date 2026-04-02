@@ -16,6 +16,7 @@ class PostFactory extends Factory
         return [
             'user_id' => User::factory(),
             'title' => fake()->sentence(),
+            'excerpt' => fake()->sentence(12),
             'slug' => fake()->slug(),
             'body' => fake()->paragraphs(5, true),
             'is_premium' => fake()->boolean(30),

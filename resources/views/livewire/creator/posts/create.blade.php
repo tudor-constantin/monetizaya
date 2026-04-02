@@ -18,23 +18,44 @@
             </div>
 
             <div>
+                <label for="excerpt" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ __('ui.excerpt') }}</label>
+                <textarea wire:model.defer="excerpt" id="excerpt" rows="3" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-3" placeholder="{{ __('ui.excerpt_placeholder') }}"></textarea>
+            </div>
+
+            <div>
                 <label for="body" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ __('ui.content') }}</label>
                 <textarea wire:model.defer="body" id="body" rows="12" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-3" placeholder="{{ __('ui.placeholder_write_content') }}"></textarea>
             </div>
 
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ __('ui.post_cover') }}</label>
+                <input wire:model="coverImageFile" type="file" accept="image/png,image/jpeg,image/webp" class="block w-full cursor-pointer text-sm text-gray-600 dark:text-gray-300 file:cursor-pointer file:mr-3 file:rounded-lg file:border-0 file:bg-blue-600 hover:file:bg-blue-700 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white transition-colors">
+                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ __('ui.post_cover_required_hint') }}</p>
+                @if($coverImageFile)
+                    <img src="{{ $coverImageFile->temporaryUrl() }}" alt="" class="mt-3 h-40 w-full object-cover rounded-lg border border-gray-200 dark:border-gray-700">
+                @endif
+            </div>
+
             <div class="flex flex-col sm:flex-row sm:items-center gap-6 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div class="flex-1">
-                    <label class="flex items-center">
-                        <input type="checkbox" wire:model.defer="isPremium" class="rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">{{ __('ui.premium_content') }} <span class="block text-xs text-gray-500 dark:text-gray-400">{{ __('ui.only_for_subscribers') }}</span></span>
+                    <label class="flex items-start gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500/40 transition-colors cursor-pointer">
+                        <span class="relative inline-flex items-center mt-0.5">
+                            <input type="checkbox" wire:model.defer="isPremium" class="peer sr-only">
+                            <span class="w-11 h-6 rounded-full bg-gray-300 dark:bg-gray-600 peer-checked:bg-blue-600 transition-colors"></span>
+                            <span class="absolute left-0.5 top-0.5 w-5 h-5 rounded-full bg-white shadow-sm peer-checked:translate-x-5 transition-transform"></span>
+                        </span>
+                        <span class="text-sm text-gray-700 dark:text-gray-300">{{ __('ui.premium_content') }} <span class="block text-xs text-gray-500 dark:text-gray-400">{{ __('ui.only_for_subscribers') }}</span></span>
                     </label>
                 </div>
                 <div>
                     <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ __('ui.status') }}</label>
-                    <select wire:model.defer="status" id="status" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-2.5">
-                        <option value="draft">{{ __('ui.draft') }}</option>
-                        <option value="published">{{ __('ui.published') }}</option>
-                    </select>
+                    <div class="relative">
+                        <select wire:model.defer="status" id="status" class="block w-full appearance-none bg-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white shadow-sm hover:border-blue-400 dark:hover:border-blue-500 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 sm:text-sm px-4 py-2.5 pr-10 transition-colors cursor-pointer">
+                            <option value="draft">{{ __('ui.draft') }}</option>
+                            <option value="published">{{ __('ui.published') }}</option>
+                        </select>
+                        <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
                 </div>
             </div>
 

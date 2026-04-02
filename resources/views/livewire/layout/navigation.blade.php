@@ -1,10 +1,17 @@
 <?php
 
 use App\Livewire\Actions\Logout;
+use Livewire\Attributes\On;
 use Livewire\Volt\Component;
 
 new class extends Component
 {
+    #[On('profile-updated')]
+    public function refreshNavigation(): void
+    {
+        // Force re-render so latest user data appears instantly in navbar.
+    }
+
     public function logout(Logout $logout): void
     {
         $logout();
@@ -26,6 +33,10 @@ new class extends Component
                 <div class="hidden md:flex items-center gap-1">
                     <a href="{{ route('dashboard') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('dashboard') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
                         {{ __('ui.dashboard') }}
+                    </a>
+
+                    <a href="{{ route('creators.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('creators.index') || request()->routeIs('creators.show') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
+                        {{ __('ui.discover_creators') }}
                     </a>
 
                     @if(auth()->user()->hasRole('creator') || auth()->user()->hasRole('admin'))
@@ -54,10 +65,23 @@ new class extends Component
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
-                                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                                @if(auth()->user()->avatar_url)
+                                    <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-8 h-8 rounded-full object-cover border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900">
+                                @else
+                                    <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
+                                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                                    </div>
+                                @endif
+                                <div class="flex items-center gap-1.5 max-w-[180px]">
+                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300 truncate">{{ auth()->user()->name }}</span>
+                                    @if(auth()->user()->hasRole('admin'))
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300">{{ __('ui.admin') }}</span>
+                                    @elseif(auth()->user()->hasRole('creator'))
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">{{ __('ui.creator') }}</span>
+                                    @else
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">{{ __('ui.user') }}</span>
+                                    @endif
                                 </div>
-                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300 max-w-[120px] truncate">{{ auth()->user()->name }}</span>
                                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </button>
                         </x-slot>
@@ -66,18 +90,11 @@ new class extends Component
                             <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
                                 <p class="text-sm font-medium text-gray-900 dark:text-white">{{ auth()->user()->name }}</p>
                                 <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ auth()->user()->email }}</p>
-                                @if(auth()->user()->hasRole('admin'))
-                                    <span class="inline-flex items-center mt-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-400">{{ __('ui.admin') }}</span>
-                                @elseif(auth()->user()->hasRole('creator'))
-                                    <span class="inline-flex items-center mt-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium bg-purple-50 dark:bg-purple-500/10 text-purple-700 dark:text-purple-400">{{ __('ui.creator') }}</span>
-                                @else
-                                    <span class="inline-flex items-center mt-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">{{ __('ui.user') }}</span>
-                                @endif
                             </div>
                             <x-dropdown-link :href="route('profile')" wire:navigate>
                                 {{ __('ui.profile') }}
                             </x-dropdown-link>
-                            <button wire:click="logout" class="w-full text-start">
+                            <button wire:click="logout" class="w-full text-start hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                                 <x-dropdown-link>
                                     {{ __('ui.log_out') }}
                                 </x-dropdown-link>
@@ -99,6 +116,7 @@ new class extends Component
     <div x-show="open" x-transition class="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
         <div class="px-4 py-3 space-y-1">
             <a href="{{ route('dashboard') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('dashboard') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}" wire:navigate>{{ __('ui.dashboard') }}</a>
+            <a href="{{ route('creators.index') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('creators.index') || request()->routeIs('creators.show') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}" wire:navigate>{{ __('ui.discover_creators') }}</a>
             @if(auth()->user()->hasRole('creator') || auth()->user()->hasRole('admin'))
                 <a href="{{ route('creator.dashboard') }}" class="block px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('creator.*') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400' }}" wire:navigate>{{ __('ui.creator_studio') }}</a>
             @endif
@@ -108,7 +126,7 @@ new class extends Component
         </div>
         <div class="border-t border-gray-200 dark:border-gray-800 px-4 py-3 space-y-1">
             <a href="{{ route('profile') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400" wire:navigate>{{ __('ui.profile') }}</a>
-            <button wire:click="logout" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400">{{ __('ui.log_out') }}</button>
+            <button wire:click="logout" class="block w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">{{ __('ui.log_out') }}</button>
         </div>
     </div>
 </nav>

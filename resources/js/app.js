@@ -34,6 +34,8 @@ window.toastHandler = function() {
                         this.addToast(data);
                     }
                 } catch (e) {}
+
+                flash.remove();
             }
         },
 

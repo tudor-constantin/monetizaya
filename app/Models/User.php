@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password', 'slug', 'avatar', 'cover_image', 'bio', 'social_links', 'subscription_price', 'is_creator', 'is_active'])]
+#[Fillable(['name', 'email', 'password', 'slug', 'avatar', 'cover_image', 'bio', 'tagline', 'stripe_price_id', 'social_links', 'subscription_price', 'is_creator', 'is_active', 'creator_requested_at'])]
 class User extends Authenticatable
 {
     use Billable, HasFactory, HasRoles, Notifiable;
@@ -27,6 +28,7 @@ class User extends Authenticatable
             'is_active' => 'boolean',
             'social_links' => 'array',
             'subscription_price' => 'decimal:2',
+            'creator_requested_at' => 'immutable_datetime',
         ];
     }
 
@@ -34,7 +36,7 @@ class User extends Authenticatable
     {
         static::creating(function (User $user) {
             if (! $user->slug) {
-                $user->slug = Str::slug($user->name).'-'.Str::random(4);
+                $user->slug = self::generateUniqueSlug($user->name);
             }
         });
     }
@@ -72,5 +74,51 @@ class User extends Authenticatable
     public function getActiveSubscriptionPrice(): float
     {
         return (float) ($this->subscription_price ?? 9.99);
+    }
+
+    public function getAvatarUrlAttribute(): ?string
+    {
+        return $this->resolveMediaUrl($this->avatar);
+    }
+
+    public function getCoverImageUrlAttribute(): ?string
+    {
+        return $this->resolveMediaUrl($this->cover_image);
+    }
+
+    private function resolveMediaUrl(?string $path): ?string
+    {
+        if (! $path) {
+            return null;
+        }
+
+        if (Str::startsWith($path, ['http://', 'https://'])) {
+            return $path;
+        }
+
+        if (Storage::disk('public')->exists($path)) {
+            return asset('storage/'.$path);
+        }
+
+        return null;
+    }
+
+    private static function generateUniqueSlug(string $name): string
+    {
+        $base = Str::slug($name);
+
+        if ($base === '') {
+            $base = 'user';
+        }
+
+        $slug = $base;
+        $counter = 2;
+
+        while (self::query()->where('slug', $slug)->exists()) {
+            $slug = $base.'-'.$counter;
+            $counter++;
+        }
+
+        return $slug;
     }
 }

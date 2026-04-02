@@ -375,8 +375,16 @@ monetizaya/
 - [x] Complete dark mode with persistent toggle
 - [x] Professional UI/UX with Tailwind CSS 4
 - [x] Secure auth forms with English messages
-- [ ] Toast notifications with auto-dismiss and responsive manual close
-- [ ] Complete translations in `lang/en/` (auth, passwords, validation, profile)
+- [x] Toast notifications with auto-dismiss and responsive manual close
+- [x] Complete translations in `lang/en/` (auth, passwords, validation, UI/profile)
+- [x] Clean creator profile URLs (slug-first, no random suffix)
+- [x] Avatar/cover uploads for creator profile and avatar upload for all users
+- [x] Enhanced post editor with cover image and excerpt
+- [x] Enriched creator profile settings (mandatory avatar, tagline, social links, pricing)
+- [x] Premium post access enforcement (free users cannot read premium content)
+- [x] Public post detail pages with creator breadcrumbs
+- [x] Premium post previews with subscribe paywall and creator sidebar context
+- [x] Clean post URLs (slug-based, no random suffix)
 - [x] Authorization policies for premium content
 - [x] Role middleware (creator, admin)
 - [x] Business services (SubscriptionService, RevenueService)

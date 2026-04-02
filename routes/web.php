@@ -1,25 +1,27 @@
 <?php
 
+use App\Http\Controllers\CreatorSubscriptionController;
+use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\StripeWebhookController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    try {
-        $creators = User::role('creator')->withCount('posts')->latest()->take(6)->get();
-    } catch (Exception $e) {
-        $creators = collect();
-    }
+Route::get('/', [PublicPageController::class, 'home'])->name('home');
 
-    return view('welcome', ['creators' => $creators]);
-})->name('home');
+Route::get('/creators/{user:slug}', [PublicPageController::class, 'showCreator'])->name('creators.show');
+Route::get('/creators/{user:slug}/posts/{post:slug}', [PublicPageController::class, 'showPost'])->name('creators.posts.show');
 
-Route::get('/creators/{user:slug}', function (User $user) {
-    $posts = $user->posts()->published()->latest()->get();
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/creators', [PublicPageController::class, 'creatorsIndex'])
+        ->name('creators.index');
 
-    return view('creator.profile', ['creator' => $user, 'posts' => $posts]);
-})->name('creators.show');
+    Route::post('/creators/{user:slug}/subscribe', [CreatorSubscriptionController::class, 'store'])
+        ->name('creators.subscribe');
+    Route::get('/creators/{user:slug}/subscribe/success', [CreatorSubscriptionController::class, 'success'])
+        ->name('creators.subscribe.success');
+    Route::get('/creators/{user:slug}/subscribe/cancel', [CreatorSubscriptionController::class, 'cancel'])
+        ->name('creators.subscribe.cancel');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Volt::route('dashboard', 'pages.dashboard')->name('dashboard');

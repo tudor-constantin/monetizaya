@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Webhooks;
 
+use App\Models\Transaction;
 use App\Models\User;
 use App\Services\RevenueService;
 use Illuminate\Support\Facades\Log;
@@ -46,6 +47,12 @@ class StripeWebhookHandler
         $currency = $invoice['currency'] ?? 'eur';
         $paymentIntent = $invoice['payment_intent'] ?? null;
         $invoiceId = $invoice['id'] ?? null;
+
+        if ($invoiceId && Transaction::where('stripe_invoice_id', $invoiceId)->exists()) {
+            Log::info('Skipping duplicated Stripe invoice webhook', ['stripe_invoice_id' => $invoiceId]);
+
+            return;
+        }
 
         $this->revenueService->recordTransaction(
             $subscriber,

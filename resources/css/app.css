@@ -2,6 +2,46 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@layer base {
+    :root {
+        --brand-blue: #0b57d0;
+        --brand-blue-deep: #1643a3;
+        --brand-blue-soft: #eff5ff;
+        --brand-accent: #3b82f6;
+        --ink: #0f172a;
+    }
+
+    body {
+        text-rendering: optimizeLegibility;
+    }
+
+    a,
+    button,
+    input,
+    select,
+    textarea {
+        @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950;
+    }
+}
+
+@layer components {
+    .ui-card {
+        @apply rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-slate-700 dark:bg-slate-900;
+    }
+
+    .ui-btn-primary {
+        @apply inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700;
+    }
+
+    .ui-btn-success {
+        @apply inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700;
+    }
+
+    .ui-btn-ghost {
+        @apply inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800;
+    }
+}
+
 @keyframes toast-progress {
     from { width: 100%; }
     to { width: 0%; }
