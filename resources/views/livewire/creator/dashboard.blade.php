@@ -45,7 +45,7 @@
 
         <!-- Quick Actions -->
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
-            <a href="{{ route('creator.posts.index') }}" class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-sm transition-shadow" wire:navigate>
+            <a href="{{ route('creator.posts.index') }}" class="ui-card-hover bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6" wire:navigate>
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-500/10 flex items-center justify-center">
                         <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('creator.resources.index') }}" class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-sm transition-shadow" wire:navigate>
+            <a href="{{ route('creator.resources.index') }}" class="ui-card-hover bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6" wire:navigate>
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center">
                         <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('creator.courses.index') }}" class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-sm transition-shadow" wire:navigate>
+            <a href="{{ route('creator.courses.index') }}" class="ui-card-hover bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6" wire:navigate>
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-500/10 flex items-center justify-center">
                         <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('profile') }}#creator-profile" class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-sm transition-shadow" wire:navigate>
+            <a href="{{ route('profile') }}#creator-profile" class="ui-card-hover bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6" wire:navigate>
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center">
                         <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.493 0 4.835.654 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('creators.show', auth()->user()) }}" class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-sm transition-shadow" wire:navigate>
+            <a href="{{ route('creators.show', auth()->user()) }}" class="ui-card-hover bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6" wire:navigate>
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-500/10 flex items-center justify-center">
                         <svg class="w-5 h-5 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>

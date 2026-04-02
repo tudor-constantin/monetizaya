@@ -29,6 +29,14 @@
         @apply rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-slate-700 dark:bg-slate-900;
     }
 
+    .ui-card-hover {
+        @apply hover:shadow-sm transition-shadow;
+    }
+
+    .ui-card-hover-md {
+        @apply hover:shadow-md transition-shadow;
+    }
+
     .ui-btn-primary {
         @apply inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700;
     }
