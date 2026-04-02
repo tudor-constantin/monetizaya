@@ -14,50 +14,7 @@
         {{ __('ui.skip_to_main_content') }}
     </a>
 
-    <header class="sticky top-0 z-50 border-b border-slate-200/90 bg-white/90 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/90">
-        <nav class="ui-shell flex h-16 items-center justify-between" aria-label="{{ __('ui.main_navigation') }}">
-            <div class="flex items-center gap-3 sm:gap-8">
-                <a href="{{ route('home') }}" class="inline-flex items-center gap-2 shrink-0" wire:navigate>
-                    <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white" aria-hidden="true">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    </span>
-                    <span class="text-lg font-bold text-slate-900 dark:text-white">{{ config('app.name') }}</span>
-                </a>
-
-                <div class="hidden md:flex items-center gap-1">
-                    <a href="{{ route('home') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('home') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
-                        {{ __('ui.home') }}
-                    </a>
-
-                    <a href="{{ route('creators.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('creators.index') || request()->routeIs('creators.show') ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800' }}" wire:navigate>
-                        {{ __('ui.discover_creators') }}
-                    </a>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-2 sm:gap-3">
-                <button onclick="window.toggleDarkMode()" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="{{ __('ui.toggle_dark_mode') }}" title="{{ __('ui.toggle_dark_mode') }}" type="button">
-                    <svg class="hidden h-5 w-5 dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                    <svg class="block h-5 w-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-                </button>
-
-                @auth
-                    <a href="{{ url('/dashboard') }}" class="inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white" wire:navigate>
-                        {{ __('ui.dashboard') }}
-                    </a>
-                @else
-                    <a href="{{ route('login') }}" class="inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white" wire:navigate>
-                        {{ __('ui.log_in') }}
-                    </a>
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="inline-flex min-h-10 items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700" wire:navigate>
-                            {{ __('ui.get_started') }}
-                        </a>
-                    @endif
-                @endauth
-            </div>
-        </nav>
-    </header>
+    <livewire:layout.navigation />
 
     <main id="contenido">
         <section class="relative overflow-hidden border-b border-slate-200 pb-16 pt-14 sm:pt-16 lg:pb-24 lg:pt-20 dark:border-slate-800" aria-labelledby="hero-title">

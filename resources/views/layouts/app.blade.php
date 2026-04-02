@@ -17,6 +17,8 @@
             $segments = request()->segments();
             $route = request()->route();
             $postParam = $route?->parameter('post');
+            $isPublicPostRoute = $route?->named('creators.posts.show') ?? false;
+            $currentUser = auth()->user();
             $resolvedPost = null;
 
             if ($postParam instanceof \App\Models\Post) {
@@ -34,7 +36,7 @@
                 ]);
             }
 
-            $breadcrumbs = collect($segments)->map(function (string $segment, int $index) use ($segments, $resolvedPost, $postShowUrl) {
+            $breadcrumbs = collect($segments)->map(function (string $segment, int $index) use ($segments, $resolvedPost, $postShowUrl, $isPublicPostRoute, $currentUser) {
                 $isPostIdentifier = ($resolvedPost instanceof \App\Models\Post)
                     && ((string) $resolvedPost->slug === $segment)
                     && ($segments[$index - 1] ?? null) === 'posts'
@@ -80,6 +82,10 @@
                     $url = route('creators.index');
                 } elseif ($segment === 'posts' && ($segments[$index - 1] ?? null) === 'creator') {
                     $url = route('creator.posts.index');
+                } elseif ($segment === 'posts' && $isPublicPostRoute) {
+                    $url = ($currentUser && $resolvedPost instanceof \App\Models\Post && $resolvedPost->user_id === $currentUser->id)
+                        ? route('creator.posts.index')
+                        : null;
                 } elseif ($segment === 'resources' && ($segments[$index - 1] ?? null) === 'creator') {
                     $url = route('creator.resources.index');
                 } elseif ($segment === 'courses' && ($segments[$index - 1] ?? null) === 'creator') {

@@ -49,7 +49,7 @@
                                         </form>
                                     @else
                                         <a href="{{ route('login') }}" class="ui-btn-primary" wire:navigate>
-                                            {{ __('ui.log_in_to_continue') }}
+                                            {{ __('ui.subscribe') }} €{{ number_format($creator->getActiveSubscriptionPrice(), 2) }}{{ __('ui.per_month') }}
                                         </a>
                                     @endauth
                                 </div>

@@ -18,7 +18,10 @@ class CreatorsIndexTest extends TestCase
         Role::findOrCreate('user', 'web');
 
         /** @var User $admin */
-        $admin = User::factory()->create();
+        $admin = User::factory()->create([
+            'is_active' => true,
+            'is_public' => true,
+        ]);
         $admin->assignRole('admin');
 
         Post::factory()->published()->free()->create([

@@ -49,9 +49,14 @@ final class PublicPageController extends Controller
         $canViewPremium = $this->canViewPremiumPosts($viewer, $user, $subscriptionService);
         $isLocked = $post->is_premium && ! $canViewPremium;
 
-        $displayBody = $isLocked
-            ? Str::limit(strip_tags($post->body), 900)
-            : $post->body;
+        if ($isLocked) {
+            $plainBody = trim(strip_tags($post->body));
+            $previewLength = max(Str::length($plainBody) - 1, 0);
+            $displayBody = Str::substr($plainBody, 0, min(220, $previewLength));
+            $displayBody = $displayBody !== '' ? rtrim($displayBody).'…' : '';
+        } else {
+            $displayBody = $post->body;
+        }
 
         $recentPosts = $user->posts()
             ->published()
