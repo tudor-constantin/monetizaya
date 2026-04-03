@@ -16,19 +16,28 @@ class DatabaseSeeder extends Seeder
             RoleAndPermissionSeeder::class,
         ]);
 
-        User::updateOrCreate(
-            ['email' => 'admin@monetizaya.test'],
-            [
-                'name' => 'Admin',
-                'password' => Hash::make('password'),
-                'email_verified_at' => now(),
-                'is_active' => true,
-            ]
-        )->assignRole('admin');
+        User::updateOrCreate([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('password'),
+            'email_verified_at' => now(),
+            'is_active' => true,
+        ])->assignRole('admin');
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Creator',
+            'email' => 'creator@creator.com',
+            'password' => Hash::make('password'),
+            'email_verified_at' => now(),
+            'is_active' => true,
+        ])->assignRole('creator');
+
+        User::factory()->create([
+            'name' => 'User',
+            'email' => 'user@user.com',
+            'password' => Hash::make('password'),
+            'email_verified_at' => now(),
+            'is_active' => true,
         ])->assignRole('user');
     }
 }
